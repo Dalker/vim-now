@@ -3,12 +3,14 @@
 """""""""""""""""""""""""""""""""""
 
 " Customization {{{
-let s:nowrootdir = '~/active/now/'            " base dir for NeverOptimaWiki (used for <l>ni)
-let s:randomdir  = s:nowrootdir . 'in/'       " dir for random notes (used for <l>nr)
-let s:shadowdir  = s:nowrootdir . 'shadow/'   " dir for keeping a date-sorted 'shadow' of content  (used for <ll>s)
-let s:NOWsuffix     = '.now'                     " suffix for now files
-let s:indexname  = 'index' . s:NOWsuffix         " name of index files (for <l>ni and for -)
-let s:randombase = 'random'                   " base name for random note files
+let s:nowrootdir  = '~/active/now/'          " base dir for NeverOptimaWiki (used for <l>ni)
+let s:randomdir   = s:nowrootdir . 'in/'     " dir for random notes (used for <l>nr)
+let s:shadowdir   = s:nowrootdir . 'shadow/' " dir for keeping a date-sorted 'shadow' of content  (used for <ll>s)
+let s:NOWsuffix   = '.now'                   " suffix for now files
+let s:indexname   = 'index' . s:NOWsuffix    " name of index files (for <l>ni and for -)
+let s:randombase  = 'random'                 " base name for random note files
+let s:webbrowser  = '!firefox '              " choice of web browser
+let s:mimeopencmd = '!mimeopen '             " choice of mimeopen program
 " }}}
 
 " O.S. specific (POSIX compliant by default) {{{
@@ -124,7 +126,21 @@ function! NOWCreateUnderCursor()
   endif
 endfun "}}}
 
+" open under cursor with browser or mimeopen (mapped on ftplugin) {{{
+function! NOWMimeOpenUnderCursor()
+  execute "normal! \"zyiW"
+  " following need is not really needed if autochdir is on, but it's a good precaution just in case
+  execute "normal! :cd %:p:h\r"
+  if @z =~# "^http://" ||  @z =~# "^https://" ||  @z =~# "^www."
+    "this is assumed to be an url
+    execute "normal! :" . s:webbrowser . @z . "\r"
+  else
+    " use generic external open command
+    execute "normal! :" . s:mimeopencmd . @z . "\r"
+  endif
+endfun "}}}
+
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-10-31
+" modif  date: 2015-11-01

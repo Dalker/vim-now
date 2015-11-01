@@ -17,18 +17,7 @@ nnoremap <buffer> <cr> gf
 call NOWsetsuffix()
 "}}}
 " <ll>gf mimeopens file under cursor {{{
-function! MimeopenUnderCursor()
-  execute "normal! \"zyiW"
-  " following need is not really needed if autochdir is on, but it's a good precaution just in case
-  execute "normal! :cd %:p:h\r"
-  if @z =~# "^http://" ||  @z =~# "^https://"
-    echo "this is an url"
-    execute "normal! :!firefox " . @z . "\r"
-  else
-    execute "normal! :!mimeopen " . @z . "\r"
-  endif
-endfun
-nnoremap <buffer> <localleader>gf :call MimeopenUnderCursor()<cr>
+nnoremap <buffer> <localleader>gf :call NOWMimeOpenUnderCursor()<cr>
 "}}}
 " <ll>cf creates file or dir under cursor, possibly adding suffix {{{
 nnoremap <buffer> <localleader>cf :call NOWCreateUnderCursor()<cr>gf

@@ -1,5 +1,6 @@
-= Never Optimal Wiki - a vim plugin =
-*a pure vim minimalistic personal wiki, facilitating the dumping and processing of random notes within vim*
+= Never Optimal Wiki - a minimalistic pure vim personal wiki =
+
+Main goal: to facilitate the dumping and processing of random notes within vim
 
 Rationale: after having tried several wiki vim plugins and several personal wiki workflows, the author realized
            that: a) full 'wiki' plugins tend to have too many features and impose too many conventions on the user
@@ -9,15 +10,16 @@ Rationale: after having tried several wiki vim plugins and several personal wiki
 Contents: ./plugin/now.vim, ./ftplugin/now.vim and ./after/syntax/now.vim
 
 Configuration:
-  several paths, etc... may be optionally customized at the top of the plugin/now.vim file
-  if the user's O.S. is not POSIX compliant, two commands need to be changed near the top of the plugin/now.vim file
-  if autochdir is not set vim-wide, a line has to be uncommented on top of ftplugin/now.vim
+ - if autochdir is not set vim-wide, a line has to be uncommented on top of ftplugin/now.vim
+ - if the user's O.S. is not POSIX compliant, two commands need to be changed near the top of the plugin/now.vim file
+ - several paths, etc... may be optionally customized at the top of the plugin/now.vim file
 
-From anywhere within vim: (<l> means <leader>)
+Usage:
+ - From anywhere within vim: (<l> means <leader>)
   *<l>ni*  goes to main index
   *<l>nr*  creates new random note (in a predefined 'in' dir)
 
-Within a NOW buffer: (<ll> means <localleader>)
+ - Within a NOW buffer: (<ll> means <localleader>)
   *gf*     opens file under cursor
   *<cr>*   opens file under cursor (optionally)
   *<ll>gf* mimeopens file under cursor
@@ -26,18 +28,24 @@ Within a NOW buffer: (<ll> means <localleader>)
   *<ll>n*  interactively names and moves a (random note) file somewhere else
   *<ll>s*  copies current file to shadow dir, prepending date to name
 
+ - Minimal syntax highliting:
+  *./...*  link to another file
+  *=...=*  title
+  **...**  emphasized text
+
 Possible usage:
-  dump anything from the mind into a random note ( with <leader>ni from anywhere on vim)
-  occasionally 'process' notes by naming them and placing them somewhere on the directory tree (with <localleader>n)
-  shadow some notes, notably personal writing, to keep a historical log - usually right after naming them (with <localleader>s)
+ - dump anything from the mind into a random note ( with <leader>ni from anywhere on vim)
+ - occasionally 'process' notes by naming them and placing them somewhere on the directory tree (with <localleader>n)
+ - shadow some notes, notably personal writing, to keep a historical log - usually right after naming them (with <localleader>s)
 
 Possible directory tree (besides in/ and shadow/ or equivalent):
-  a 'circulating' dir with subdirs can help temporary notes blend together into something
-  a 'lifehack' dir can contain long-term lifehacking tips
-  a 'quotes' dir can contain notes which carry book quotes, based on post-its glued while reading one
-  etc...
+ - 'circulating' dir with subdirs to help temporary notes blend together into something
+ - 'lifehack' dir to contain long-term lifehacking tips
+ - 'quotes' dir to contain notes which carry book quotes, based on post-its glued while reading one
+ - etc...
 
-This could result in:
+  This could result in the following dir tree:
+
   now/---- in/ ---- random01.now
        |        |-- random02.now
        |        |-- (...)
