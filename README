@@ -1,0 +1,9 @@
+= Never Optimal Wiki - a pure vim minimalistic personal wiki =
+
+releases can be found at: http://www.vim.org/scripts/index.php
+more details can be read on: https://github.com/Dalker/vim-now/blob/master/README.now
+
+Configuration:
+  several paths, etc... may be optionally customized at the top of the plugin/now.vim file
+  if the user's O.S. is not POSIX compliant, two commands need to be changed near the top of the plugin/now.vim file
+  if autochdir is not set vim-wide, a line has to be uncommented on top of ftplugin/now.vim
