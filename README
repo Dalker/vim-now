@@ -1,9 +1,10 @@
 = Never Optimal Wiki - a pure vim minimalistic personal wiki =
 
-releases can be found at: http://www.vim.org/scripts/index.php
+releases can be found at: http://www.vim.org/scripts/script.php?script_id=5263
 more details can be read on: https://github.com/Dalker/vim-now/blob/master/README.now
 
-Configuration:
-  several paths, etc... may be optionally customized at the top of the plugin/now.vim file
-  if the user's O.S. is not POSIX compliant, two commands need to be changed near the top of the plugin/now.vim file
-  if autochdir is not set vim-wide, a line has to be uncommented on top of ftplugin/now.vim
+Easiest way to install, if pathogen (https://github.com/tpope/vim-pathogen) is used to manage vim scripts:
+ - cd on a console to wherever the local 'bundle' directory is located and then:
+   > git clone https://github.com/Dalker/vim-now
+ - test and read further instructions for optional customization with:
+   > vim vim-now/README.now

@@ -1,5 +1,5 @@
 = Never Optimal Wiki - a vim plugin =
-*a pure vim personal wiki, facilitating the dumping and processing of random notes within vim*
+*a pure vim minimalistic personal wiki, facilitating the dumping and processing of random notes within vim*
 
 Rationale: after having tried several wiki vim plugins and several personal wiki workflows, the author realized
            that: a) full 'wiki' plugins tend to have too many features and impose too many conventions on the user
