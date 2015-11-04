@@ -14,7 +14,7 @@ Configuration:
  - if the user's O.S. is not POSIX compliant, two commands need to be changed near the top of the plugin/now.vim file
  - several paths, etc... may be optionally customized at the top of the plugin/now.vim file
 
-Usage:
+Features:
  - From anywhere within vim: (<l> means <leader>)
   *<l>ni*  goes to main index
   *<l>nr*  creates new random note (in a predefined 'in' dir)
@@ -34,7 +34,7 @@ Usage:
   **...**  emphasized text
 
 Possible usage:
- - dump anything from the mind into a random note ( with <leader>ni from anywhere on vim)
+ - dump anything from the mind into a random note ( with <leader>nr from anywhere on vim)
  - occasionally 'process' notes by naming them and placing them somewhere on the directory tree (with <localleader>n)
  - shadow some notes, notably personal writing, to keep a historical log - usually right after naming them (with <localleader>s)
 
