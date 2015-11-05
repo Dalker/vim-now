@@ -2,8 +2,6 @@
 " Never Optimal Wiki - vim plugin "
 """""""""""""""""""""""""""""""""""
 "
-" requires: bufkill
-"
 " basic configuration
 " Customization {{{
 let s:nowrootdir  = '~/active/now/'          " base dir for NeverOptimaWiki (used for <l>ni)
@@ -86,17 +84,16 @@ function! NOWshadow() "{{{
 endfunction "}}}
 function! NOWname() "{{{
 " name and move elsewhere (mapped on ftplugin)
-  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file'). s:NOWsuffix
-  if l:destination ==# ""
-    echo "\naborting NOW naming"
+  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file') . s:NOWsuffix
+  if l:destination ==# "" || l:destination ==# s:NOWsuffix
+    echo "\nNOW naming aborted by user"
+  elseif filereadable(l:destination)
+    echo "\nNOW naming aborted: file exists"
   else
-"     execute 'normal! :' . s:mvcommand . expand('%:t') . ' ' . l:destination . "\r" 
-    let l:cd_command = 'normal! :cd ' . expand('%:h') . "\r" 
-    let l:move_command = 'normal! :' . s:mvcommand . expand('%:t') . ' ' . l:destination . "\r" 
-    BD
-    execute l:cd_command
-    execute l:move_command
-    execute "normal! :open " . l:destination  . "\r"
+    let l:prev_name = expand('%:t')
+    execute 'normal! :saveas ' . l:destination . "\r" 
+    execute 'normal! :!rm ' . l:prev_name . "\r" 
+    execute 'silent! normal! :bd ' . l:prev_name . "\r" 
   endif
 endfunction "}}}
 function! NOWclassify() "{{{
