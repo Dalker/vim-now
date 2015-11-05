@@ -28,8 +28,11 @@ nmap <buffer> - :call NOWbufup()<cr>
 " <ll>s copies current file to shadow with date preprended {{{
 nmap <buffer> <LocalLeader>s :call NOWshadow()<cr>
 "}}}
-" <ll>n interactively names and moves a (random) file somewhere else {{{
+" <ll>n interactively names file to something else {{{
 nmap <buffer> <localleader>n :call NOWname()<cr>
+"}}}
+" <ll>c interactively classifies (moves) a  file somewhere else {{{
+nmap <buffer> <localleader>c :call NOWclassify()<cr>
 "}}}
 
 " allow some concealing "{{{
@@ -45,4 +48,4 @@ syn sync fromstart
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2015-10-31
+" modif  date: 2015-11-05

@@ -6,7 +6,7 @@
 " Customization {{{
 let s:nowrootdir  = '~/active/now/'          " base dir for NeverOptimaWiki (used for <l>ni)
 let s:randomdir   = s:nowrootdir . 'in/'     " dir for random notes (used for <l>nr)
-let s:randomdir   = '../circulating/'        " default for naming, relative to random notes (used for <ll>n)
+let s:classifydir = '../circulating/'        " default for classifying, relative to random notes (used for <ll>n)
 let s:shadowdir   = s:nowrootdir . 'shadow/' " dir for keeping a date-sorted 'shadow' of content  (used for <ll>s)
 let s:NOWsuffix   = '.now'                   " suffix for now files
 let s:indexname   = 'index' . s:NOWsuffix    " name of index files (for <l>ni and for -)
@@ -84,13 +84,23 @@ function! NOWshadow() "{{{
 endfunction "}}}
 function! NOWname() "{{{
 " name and move elsewhere (mapped on ftplugin)
-  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", s:randomdir , 'file')
-  if l:destination ==# s:randomdir || l:destination ==# "" 
+  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file')
+  if l:destination ==# ""
     echo "\naborting NOW naming"
   else
     execute 'normal! :' . s:mvcommand . expand('%:t') . ' ' . l:destination . s:NOWsuffix . "\r" 
     bd
     execute "normal! :open " . l:destination . s:NOWsuffix . "\r"
+  endif
+endfunction "}}}
+function! NOWclassify() "{{{
+" classify, i.e. move elsewhere (mapped on ftplugin)
+  let l:destination = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
+  if l:destination ==# s:classifydir || l:destination ==# "" 
+    echo "\naborting NOW classifying"
+  else
+    execute 'normal! :' . s:mvcommand . expand('%:t') . ' ' . l:destination . "\r" 
+    bd
   endif
 endfunction "}}}
 function! NOWCreateUnderCursor() "{{{
