@@ -6,6 +6,7 @@
 " Customization {{{
 let s:nowrootdir  = '~/active/now/'          " base dir for NeverOptimaWiki (used for <l>ni)
 let s:randomdir   = s:nowrootdir . 'in/'     " dir for random notes (used for <l>nr)
+let s:randomdir   = '../circulating/'        " default for naming, relative to random notes (used for <ll>n)
 let s:shadowdir   = s:nowrootdir . 'shadow/' " dir for keeping a date-sorted 'shadow' of content  (used for <ll>s)
 let s:NOWsuffix   = '.now'                   " suffix for now files
 let s:indexname   = 'index' . s:NOWsuffix    " name of index files (for <l>ni and for -)
@@ -83,8 +84,8 @@ function! NOWshadow() "{{{
 endfunction "}}}
 function! NOWname() "{{{
 " name and move elsewhere (mapped on ftplugin)
-  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", '../', 'file')
-  if l:destination ==# "../" || l:destination ==# "" 
+  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", s:randomdir , 'file')
+  if l:destination ==# s:randomdir || l:destination ==# "" 
     echo "\naborting NOW naming"
   else
     execute 'normal! :' . s:mvcommand . expand('%:t') . ' ' . l:destination . s:NOWsuffix . "\r" 
@@ -137,4 +138,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-11-03
+" modif  date: 2015-11-05
