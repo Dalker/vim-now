@@ -79,6 +79,7 @@ endfunction "}}}
 function! NOWname() "{{{
 " name in place (mapped on ftplugin)
   let l:answer = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file') 
+  " following should ensure that this renames file *in place*
   let l:destination = fnamemodify(l:answer . s:NOWsuffix, ":t")
   if l:answer ==# ""
     echo "\nNOW: naming aborted by user"
@@ -95,21 +96,40 @@ function! NOWname() "{{{
   endif
 endfunction "}}}
 function! NOWclassify() "{{{
-" classify, i.e. move elsewhere (mapped on ftplugin)
-  let l:dest_dir = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
-  let l:dest_file = fnamemodify(l:dest_dir, ":p") . expand('%:t')
-  if l:dest_dir ==# ""
+" classify, i.e. move elsewhere, with same name (mapped on ftplugin)
+  let l:answer = input("enter destination dir or <esc> to abort\n> ", s:classifydir , 'file')
+  " verify if no dir (abort), if dir exists, or if needs creation
+  let l:dest_dir  = fnamemodify(l:answer, ":p")
+  if l:answer ==# ""
     echo "\nNOW classifying aborted by user"
+    return
   elseif isdirectory(l:dest_dir) == 0 " in vim false is set as 0
-    echo "\nNOW classifying aborted: " . l:dest_dir . " is not a directory"
+    let l:create_dir = input("directory " . l:dest_dir . "does not exist. Create? (yes/*) > ", "" )
+    if l:create_dir ==# "yes"
+      call mkdir (l:dest_dir, "p")
+    else
+      echo "\nNOW classifying aborted: directory not created"
+      return
+    end
+  end
+  " re-check everything, then move file
+  " 'fnamemodify' again to make sure slashes are correct after creation
+  let l:dest_dir  = fnamemodify(l:answer, ":p")
+  let l:dest_file = l:dest_dir . expand('%:t')
+  if isdirectory(l:dest_dir) == 0 " in vim false is set as 0
+    echo "\nNOW classifying aborted: directory does not exist"
   elseif filereadable(l:dest_file)
     echo "\nNOW classifying aborted: file exists"
   else
     let l:prev_dir  = expand('%:p:h')
     let l:prev_file = expand('%:p')
-    execute 'normal! :saveas '          . l:dest_file . "\r"
-    execute 'normal! :!rm '             . l:prev_file   . "\r"
-    execute 'silent! normal! :Explore ' . l:prev_dir    . "\r"
+"     execute 'normal! :saveas '          . l:dest_file . "\r"
+"     execute 'normal! :!rm '             . l:prev_file   . "\r"
+    if rename (l:prev_file, l:dest_file) " true if failed (vim...)
+      echo "\nNOW: classify had a problem"
+    else
+      execute 'silent! normal! :Explore ' . l:prev_dir    . "\r"
+    end
   endif
 endfunction "}}}
 function! NOWCreateUnderCursor() "{{{
@@ -157,4 +177,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-11-05
+" modif  date: 2015-11-06
