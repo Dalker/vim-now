@@ -14,15 +14,6 @@ let s:randombase  = 'random'                 " base name for random note files
 let s:webbrowser  = '!firefox '              " choice of web browser
 let s:mimeopencmd = '!mimeopen '             " choice of mimeopen program
 " }}}
-" O.S. specific (POSIX compliant by default) {{{
-" note: this plugin currently uses the following *nix commands:
-"                   'cp -i' and 'mv -i'
-" as they perform nice checks before copying/moving a file
-" so if you want to use this plugin in a different O.S., you'll
-" have to replace them by something equivalent
-let s:cpcommand  = '!cp -i '
-let s:mvcommand  = '!mv -i '
-" }}}
 " define filetype for Never Optimal Wiki "{{{
 execute 'silent! normal! :autocmd BufNewFile,BufRead *' . s:NOWsuffix . " set filetype=now" . "\r"
 "}}}
@@ -80,7 +71,10 @@ function! NOWshadow() "{{{
   " shadowed contents have a date prefixed to the file name, to keep
   " a historical record of contents
   let l:destination = s:shadowdir . strftime('%Y.%m.%d') . '-' . expand('%:t')
-  execute 'normal! :' s:cpcommand . expand('%:t') . ' ' . l:destination . "\r"
+  let l:actual_file = expand('%:p')
+  execute 'normal! :saveas ' . l:destination . "\r"
+  execute 'normal! :e '      . l:actual_file . "\r"
+  execute 'normal! :bd '     . l:destination . "\r"
 endfunction "}}}
 function! NOWname() "{{{
 " name and move elsewhere (mapped on ftplugin)
@@ -107,12 +101,12 @@ function! NOWclassify() "{{{
   else
     let l:prev_dir  = expand('%:p:h')
     let l:prev_file = expand('%:p')
-    exe "normal! :!echo will move to: " . l:destination . "\r"
-    exe "normal! :!echo will remove: " . l:prev_file . "\r"
+    exe "normal! :!echo will move to: "  . l:destination . "\r"
+    exe "normal! :!echo will remove: "   . l:prev_file . "\r"
     exe "normal! :!echo then re-cd to: " . l:prev_dir . "\r"
-    execute 'normal! :saveas ' . l:destination . "\r"
-    execute 'normal! :!rm ' . l:prev_file . "\r" 
-    execute 'silent! normal! :Explore ' . l:prev_dir . "\r" 
+    execute 'normal! :saveas '          . l:destination . "\r"
+    execute 'normal! :!rm '             . l:prev_file   . "\r" 
+    execute 'silent! normal! :Explore ' . l:prev_dir    . "\r" 
   endif
 endfunction "}}}
 function! NOWCreateUnderCursor() "{{{
