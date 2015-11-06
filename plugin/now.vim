@@ -98,14 +98,21 @@ function! NOWname() "{{{
 endfunction "}}}
 function! NOWclassify() "{{{
 " classify, i.e. move elsewhere (mapped on ftplugin)
-  let l:destination = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
-  if l:destination ==# "" 
-    echo "\naborting NOW classifying"
+  let l:answer = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
+  let l:destination = l:answer . '/' . expand('%:t')
+  if l:answer ==# "" 
+    echo "\nNOW classifying aborted by user"
+  elseif filereadable(l:destination)
+    echo "\nNOW classifying aborted: file exists"
   else
-    let l:cd_command = 'normal! :cd ' . expand('%:h') . "\r" 
-    let l:move_command = 'normal! :' . s:mvcommand . expand('%:t') . ' ' . l:destination . "\r" 
-    Explore
-    execute l:move_command
+    let l:prev_dir  = expand('%:p:h')
+    let l:prev_file = expand('%:p')
+    exe "normal! :!echo will move to: " . l:destination . "\r"
+    exe "normal! :!echo will remove: " . l:prev_file . "\r"
+    exe "normal! :!echo then re-cd to: " . l:prev_dir . "\r"
+    execute 'normal! :saveas ' . l:destination . "\r"
+    execute 'normal! :!rm ' . l:prev_file . "\r" 
+    execute 'silent! normal! :Explore ' . l:prev_dir . "\r" 
   endif
 endfunction "}}}
 function! NOWCreateUnderCursor() "{{{
