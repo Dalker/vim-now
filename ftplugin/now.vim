@@ -14,25 +14,25 @@ nnoremap <buffer> <cr> gf
 " }}}
 
 " gf accepts NOW suffix as an auto-suffix {{{
-call NOWsetsuffix()
+call now#SetSuffix()
 "}}}
 " <ll>gf mimeopens file under cursor {{{
-nnoremap <buffer> <localleader>gf :call NOWMimeOpenUnderCursor()<cr>
+nnoremap <buffer> <localleader>gf :call now#MimeOpenUnderCursor()<cr>
 "}}}
 " <ll>cf creates file or dir under cursor, possibly adding suffix {{{
-nnoremap <buffer> <localleader>cf :call NOWCreateUnderCursor()<cr>gf
+nnoremap <buffer> <localleader>cf :call now#CreateUnderCursor()<cr>gf
 "}}}
 " - goes up to either index or netrw using {{{
-nmap <buffer> - :call NOWbufup()<cr>
+nmap <buffer> - :call now#BufUp()<cr>
 "}}}
 " <ll>s copies current file to shadow with date preprended {{{
-nmap <buffer> <LocalLeader>s :call NOWshadow()<cr>
+nmap <buffer> <LocalLeader>s :call now#Shadow()<cr>
 "}}}
 " <ll>n interactively names file to something else {{{
-nmap <buffer> <localleader>n :call NOWname()<cr>
+nmap <buffer> <localleader>n :call now#Name()<cr>
 "}}}
 " <ll>c interactively classifies (moves) a  file somewhere else {{{
-nmap <buffer> <localleader>c :call NOWclassify()<cr>
+nmap <buffer> <localleader>c :call now#Classify()<cr>
 "}}}
 
 " allow some concealing "{{{
@@ -48,4 +48,4 @@ syn sync fromstart
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2015-11-05
+" modif  date: 2015-11-07
