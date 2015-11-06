@@ -92,18 +92,18 @@ function! NOWname() "{{{
 endfunction "}}}
 function! NOWclassify() "{{{
 " classify, i.e. move elsewhere (mapped on ftplugin)
-  let l:answer = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
-  let l:destination = fnamemodify(l:answer, ":p") . expand('%:t')
-  if l:answer ==# ""
+  let l:dest_dir = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
+  let l:dest_file = fnamemodify(l:dest_dir, ":p") . expand('%:t')
+  if l:dest_dir ==# ""
     echo "\nNOW classifying aborted by user"
-  elseif isdirectory(l:answer) == 0 " in vim false is set as 0
-    echo "\nNOW classifying aborted: " . l:answer . " is not a directory"
-  elseif filereadable(l:destination)
+  elseif isdirectory(l:dest_dir) == 0 " in vim false is set as 0
+    echo "\nNOW classifying aborted: " . l:dest_dir . " is not a directory"
+  elseif filereadable(l:dest_file)
     echo "\nNOW classifying aborted: file exists"
   else
     let l:prev_dir  = expand('%:p:h')
     let l:prev_file = expand('%:p')
-    execute 'normal! :saveas '          . l:destination . "\r"
+    execute 'normal! :saveas '          . l:dest_file . "\r"
     execute 'normal! :!rm '             . l:prev_file   . "\r"
     execute 'silent! normal! :Explore ' . l:prev_dir    . "\r"
   endif

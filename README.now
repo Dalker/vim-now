@@ -11,7 +11,6 @@ Contents: ./plugin/now.vim, ./ftplugin/now.vim and ./after/syntax/now.vim
 
 Configuration:
  - if autochdir is not set vim-wide, a line has to be uncommented on top of ftplugin/now.vim
- - if the user's O.S. is not POSIX compliant, two commands need to be changed near the top of the plugin/now.vim file
  - several paths, etc... may be optionally customized at the top of the plugin/now.vim file
 
 Features:
@@ -25,7 +24,8 @@ Features:
   *<ll>gf* mimeopens file under cursor
   *<ll>cf* creates file or dir under cursor, possibly adding suffix
   *-*      goes up to either index (also updating it) or to netrw
-  *<ll>n*  interactively names and moves a (random note) file somewhere else
+  *<ll>n*  interactively names a (random note) file in place
+  *<ll>c*  interactively moves a (random note) somewhere else
   *<ll>s*  copies current file to shadow dir, prepending date to name
 
  - Minimal syntax highliting:
@@ -35,7 +35,7 @@ Features:
 
 Possible usage:
  - dump anything from the mind into a random note ( with <leader>nr from anywhere on vim)
- - occasionally 'process' notes by naming them and placing them somewhere on the directory tree (with <localleader>n)
+ - occasionally 'process' notes by naming them and classifying them somewhere on the directory tree (with <localleader>n)
  - shadow some notes, notably personal writing, to keep a historical log - usually right after naming them (with <localleader>s)
 
 Possible directory tree (besides in/ and shadow/ or equivalent):
