@@ -77,17 +77,21 @@ function! NOWshadow() "{{{
   execute 'normal! :bd '     . l:destination . "\r"
 endfunction "}}}
 function! NOWname() "{{{
-" name and move elsewhere (mapped on ftplugin)
-  let l:destination = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file') . s:NOWsuffix
-  if l:destination ==# "" || l:destination ==# s:NOWsuffix
-    echo "\nNOW naming aborted by user"
+" name in place (mapped on ftplugin)
+  let l:answer = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file') 
+  let l:destination = fnamemodify(l:answer . s:NOWsuffix, ":t")
+  if l:answer ==# ""
+    echo "\nNOW: naming aborted by user"
   elseif filereadable(l:destination)
-    echo "\nNOW naming aborted: file exists"
+    echo "\nNOW: naming aborted: file exists"
   else
     let l:prev_name = expand('%:t')
-    execute 'normal! :saveas '     . l:destination . "\r" 
-    execute 'normal! :!rm '        . l:prev_name   . "\r" 
-    execute 'silent! normal! :bd ' . l:prev_name   . "\r" 
+    if rename (l:prev_name, l:destination) " true if failed (vim...)
+      echo "\nNOW: naming had a problem"
+    else
+      execute 'silent! normal! :edit ' . l:destination . "\r"
+      execute 'silent! normal! :bd '   . l:prev_name   . "\r" 
+    end
   endif
 endfunction "}}}
 function! NOWclassify() "{{{
