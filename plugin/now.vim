@@ -85,28 +85,27 @@ function! NOWname() "{{{
     echo "\nNOW naming aborted: file exists"
   else
     let l:prev_name = expand('%:t')
-    execute 'normal! :saveas ' . l:destination . "\r" 
-    execute 'normal! :!rm ' . l:prev_name . "\r" 
-    execute 'silent! normal! :bd ' . l:prev_name . "\r" 
+    execute 'normal! :saveas '     . l:destination . "\r" 
+    execute 'normal! :!rm '        . l:prev_name   . "\r" 
+    execute 'silent! normal! :bd ' . l:prev_name   . "\r" 
   endif
 endfunction "}}}
 function! NOWclassify() "{{{
 " classify, i.e. move elsewhere (mapped on ftplugin)
   let l:answer = input("enter destination or <esc> to abort\n> ", s:classifydir , 'file')
-  let l:destination = l:answer . '/' . expand('%:t')
-  if l:answer ==# "" 
+  let l:destination = fnamemodify(l:answer, ":p") . expand('%:t')
+  if l:answer ==# ""
     echo "\nNOW classifying aborted by user"
+  elseif isdirectory(l:answer) == 0 " in vim false is set as 0
+    echo "\nNOW classifying aborted: " . l:answer . " is not a directory"
   elseif filereadable(l:destination)
     echo "\nNOW classifying aborted: file exists"
   else
     let l:prev_dir  = expand('%:p:h')
     let l:prev_file = expand('%:p')
-    exe "normal! :!echo will move to: "  . l:destination . "\r"
-    exe "normal! :!echo will remove: "   . l:prev_file . "\r"
-    exe "normal! :!echo then re-cd to: " . l:prev_dir . "\r"
     execute 'normal! :saveas '          . l:destination . "\r"
-    execute 'normal! :!rm '             . l:prev_file   . "\r" 
-    execute 'silent! normal! :Explore ' . l:prev_dir    . "\r" 
+    execute 'normal! :!rm '             . l:prev_file   . "\r"
+    execute 'silent! normal! :Explore ' . l:prev_dir    . "\r"
   endif
 endfunction "}}}
 function! NOWCreateUnderCursor() "{{{
