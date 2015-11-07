@@ -18,8 +18,9 @@
 "   let g:NOW_webbrowser  = '!firefox '       " choice of web browser                             (used for <ll>gf)
 "   let g:NOW_mimeopencmd = '!mimeopen '      " choice of mimeopen program                        (used for <ll>gf)
 " global key mappings
-"   let g:NOW_map_index = '<leader>ni'        " go to NOW index  
-"   let g:NOW_map_index = '<leader>nr'        " create new random note
+"   let g:NOW_map_index   = '<leader>ni'      " go to NOW index  
+"   let g:NOW_map_index   = '<leader>nr'      " create new random note
+"   let g:NOW_map_mkindex = '<leader>nk'      " create/update local index
 "
 " For each option, default value is set unless user previously overridden by .vimrc
 function! <SID>SetOption(name, map) "{{{
@@ -43,8 +44,9 @@ call <SID>SetOption("webbrowser", '!firefox ')
 call <SID>SetOption("mimeopencmd",'!mimeopen ')
 "}}}
 " global key mappings "{{{
-call <SID>SetOption("map_index", "<leader>ni") " go to NOW index
-call <SID>SetOption("map_rnote", "<leader>nr") " edit new random note
+call <SID>SetOption("map_index",   "<leader>ni") " go to NOW index
+call <SID>SetOption("map_rnote",   "<leader>nr") " edit new random note
+call <SID>SetOption("map_mkindex", "<leader>nk") " make index at cwd
 "}}}
 
 " Once options are set, plugin is initialized
@@ -59,6 +61,7 @@ execute 'silent! normal! :autocmd BufNewFile,BufRead *' . g:NOW_suffix . " set f
 execute "silent! normal! :nnoremap " . g:NOW_map_index . " :call now#Index()<cr>". "\r" 
 " - create a new file labeled randomNN for next available natural NN and edit it
 execute "silent! normal! :nnoremap " . g:NOW_map_rnote . " :call now#RandomNote()<cr>". "\r" 
+execute "silent! normal! :nnoremap " . g:NOW_map_mkindex . " :call now#MakeIndex()<cr>". "\r" 
 "}}}
 "
 "------------------------

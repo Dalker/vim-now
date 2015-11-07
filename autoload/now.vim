@@ -37,6 +37,24 @@ function! now#RandomNote() " {{{
   execute "normal! :edit " . l:currentfile . "\r"
 endfun
 "}}}
+function! now#MakeIndex() " {{{
+  " just in case, make sure we're in the right place
+  execute "normal! :cd %:p:h\r"
+  " create or edit local index file
+  execute "normal! :edit " . NOW_indexname . g:NOW_suffix . "\r"
+  " then look at every file/dir from this location
+  for l:file in split(glob('*'), '\n')
+    " is it already on the file? (possibly suffix-less)
+    let l:pattern = substitute(l:file, g:NOW_suffix, '', '')
+    let v:errmsg = 'ok'
+    execute "silent! normal! :/" . l:pattern . "\r"
+    if v:errmsg != 'ok' && l:file != l:NOW_indexname
+      " if not present, then add it at the bottom of index file
+      execute "normal! Go./" . l:pattern
+    endif
+  endfor
+endfun
+"}}}
 " functions called from ../ftplugin/now.vim (buffer specific)
 function! now#SetSuffix() "{{{
   " set gf suffix (called from ftplugin) 

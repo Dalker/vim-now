@@ -20,6 +20,7 @@ Features:
  - From anywhere within vim: (<l> means <leader>)
   *<l>ni*  goes to main index
   *<l>nr*  creates new random note (in a predefined 'in' dir)
+  *<l>nk*  creates/updates local index file in current dir
 
  - Within a NOW buffer: (<ll> means <localleader>)
   *gf*     open dir or file under cursor, adding suffix if needed (vim standard)
