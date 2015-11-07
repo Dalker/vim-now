@@ -38,17 +38,16 @@ function! now#RandomNote() " {{{
 endfun
 "}}}
 function! now#MakeIndex() " {{{
-  " just in case, make sure we're in the right place
-  execute "normal! :cd %:p:h\r"
+  " NB: may have arrived here from now#BufUp or direct keymap
   " create or edit local index file
-  execute "normal! :edit " . NOW_indexname . g:NOW_suffix . "\r"
+  execute "normal! :edit " . g:NOW_indexname . g:NOW_suffix . "\r"
   " then look at every file/dir from this location
   for l:file in split(glob('*'), '\n')
     " is it already on the file? (possibly suffix-less)
     let l:pattern = substitute(l:file, g:NOW_suffix, '', '')
     let v:errmsg = 'ok'
     execute "silent! normal! :/" . l:pattern . "\r"
-    if v:errmsg != 'ok' && l:file != l:NOW_indexname
+    if v:errmsg != 'ok' && l:file !=# g:NOW_indexname . g:NOW_suffix
       " if not present, then add it at the bottom of index file
       execute "normal! Go./" . l:pattern
     endif
@@ -64,18 +63,16 @@ endfunction
 function! now#BufUp() "{{{
 " behaviour of - while on now files (mapped on ftplugin)
   if expand('%:t') ==# g:NOW_indexname . g:NOW_suffix
-    " if on index file, leave it for netrw
-    open ./
-  else
-    " if there's an index file, update and enter it
-    if filereadable(g:NOW_indexname . g:NOW_suffix)
-"       execute "normal! :!nowindex\r"
-      execute "normal! :open " . g:NOW_indexname . g:NOW_suffix . "\r"
-    else
-      " otherwise goto netrw
-      open ./
-    endif
+    " if on index file, go to parent dir first (otherwise stay on same dir)
+    cd ../
   end
+  if filereadable(g:NOW_indexname . g:NOW_suffix)
+    " if there's an index file, update and enter it
+    call now#MakeIndex()
+  else
+    " otherwise goto netrw
+    open ./
+  endif
 endfunction "}}}
 function! now#Shadow() "{{{
 " copy current file to shadow dir (mapped on ftplugin)
