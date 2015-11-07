@@ -6,10 +6,10 @@
 " Most users will only need to override g:NOW_rootdir and possibly optional external programs    
 "
 " directories
-"   let g:NOW_rootdir     = '~/active/now/'           " base dir for NeverOptimaWiki (used for <l>ni)
-"   let g:NOW_randomdir   = g:NOW_rootdir . 'in/'     " dir for random notes (used for <l>nr)
-"   let g:NOW_shadowdir   = g:NOW_rootdir . 'shadow/' " dir for keeping a date-sorted 'shadow' of content  (used for <ll>s) 
-"   let g:NOW_classifydir = '../circulating/'         " default for classifying, relative to random notes (used for <ll>c)  
+"   let g:NOW_rootdir     = '~/active/now/'           " base dir for NeverOptimaWiki                                       (used for <l>ni)
+"   let g:NOW_randomdir   = 'in/'                     " subdir for random notes, relative to NOW root dir                  (used for <l>nr)
+"   let g:NOW_shadowdir   = 'shadow/'                 " subdir for date-sorted 'shadow' content, relative to NOW root dir  (used for <ll>s) 
+"   let g:NOW_classifydir = '../circulating/'         " default for classifying, relative to random notes                  (used for <ll>c)
 " file names
 "   let g:NOW_suffix      = '.now'                    " suffix for now files
 "   let g:NOW_indexname   = 'index' . g:NOW_suffix    " name of index files (for <l>ni and for -)
@@ -29,8 +29,8 @@ function! <SID>SetOption(name, map) "{{{
 endfunction "}}}
 " directories {{{
 call <SID>SetOption("rootdir",     '~/active/now/')
-call <SID>SetOption("randomdir",   g:NOW_rootdir . 'in/')    
-call <SID>SetOption("shadowdir",   g:NOW_rootdir . 'shadow/')
+call <SID>SetOption("randomdir",   'in/')    
+call <SID>SetOption("shadowdir",   'shadow/')
 call <SID>SetOption("classifydir", '../circulating/')      
 "}}}
 " file names "{{{

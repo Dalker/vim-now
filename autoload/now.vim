@@ -8,7 +8,7 @@
 " function called from global mapping
 function! now#RandomNote() " {{{
   " random notes get into the following dir
-  execute "normal! :cd " . g:NOW_randomdir  . "\r"
+  execute "normal! :cd " . g:NOW_rootdir . g:NOW_randomdir  . "\r"
   " what follows looks for the next available number and uses it
   " to create a randomXX file
   let l:nextnow = 1
@@ -53,7 +53,7 @@ function! now#Shadow() "{{{
 " copy current file to shadow dir (mapped on ftplugin)
   " shadowed contents have a date prefixed to the file name, to keep
   " a historical record of contents
-  let l:destination = g:NOW_shadowdir . strftime('%Y.%m.%d') . '-' . expand('%:t')
+  let l:destination = g:NOW_rootdir . g:NOW_shadowdir . strftime('%Y.%m.%d') . '-' . expand('%:t')
   let l:actual_file = expand('%:p')
   execute 'normal! :saveas ' . l:destination . "\r"
   execute 'normal! :e '      . l:actual_file . "\r"
