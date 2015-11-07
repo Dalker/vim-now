@@ -7,11 +7,14 @@ Rationale: after having tried several wiki vim plugins and several personal wiki
                  b) no personal note-taking workflow is ever optimal ("never optimal")
                  c) to actually get something written or done, you have to do it now (on a Never Optimal Wiki)
 
-Contents: ./plugin/now.vim, ./ftplugin/now.vim and ./after/syntax/now.vim
+Contents: ./plugin/now.vim, ./ftplugin/now.vim, ./after/syntax/now.vim and ./autoload/now.vim
 
 Configuration:
+ - user is expected to have <leader> and <localleader> already setup (in .vimrc) 
  - if autochdir is not set vim-wide, a line has to be uncommented on top of ftplugin/now.vim
- - several paths, etc... may be optionally customized at the top of the plugin/now.vim file
+ - several paths, etc... may be optionally customized as explained at the top of the plugin/now.vim file
+    Most probably the single option that will need to be set by the user is the root dir of the never optimal wiki:
+    > let g:NOW_rootdir = '~/location/of/rootdir/'
 
 Features:
  - From anywhere within vim: (<l> means <leader>)
@@ -19,14 +22,17 @@ Features:
   *<l>nr*  creates new random note (in a predefined 'in' dir)
 
  - Within a NOW buffer: (<ll> means <localleader>)
-  *gf*     opens file under cursor
-  *<cr>*   opens file under cursor (optionally)
-  *<ll>gf* mimeopens file under cursor
-  *<ll>cf* creates file or dir under cursor, possibly adding suffix
-  *-*      goes up to either index (also updating it) or to netrw
-  *<ll>n*  interactively names a (random note) file in place
-  *<ll>c*  interactively moves a (random note) somewhere else
-  *<ll>s*  copies current file to shadow dir, prepending date to name
+  *gf*     open dir or file under cursor, adding suffix if needed (vim standard)
+  *<cr>*   same as above
+  *Ctrl-O* go back to previous location (vim standard) 
+  *<ll>cf* create file or dir under cursor, adding suffix if needed
+  *<ll>gf* open under cursor with external program, which must be properly configured
+           (the defaults are 'firefox' for URLs and 'mimeopen' for anything
+            else, which should work well in a Linux environment)
+  *-*      go up to either dir's index.now file if available or to a netrw view of current directory
+  *<ll>n*  interactively (re)name a (random note) file in place
+  *<ll>c*  interactively move a (random note) somewhere else, keeping the same name
+  *<ll>s*  copy current file to shadow dir, prepending date to name (to keep a historical log)
 
  - Minimal syntax highliting:
   *./...*  link to another file
@@ -35,7 +41,7 @@ Features:
 
 Possible usage:
  - dump anything from the mind into a random note ( with <leader>nr from anywhere on vim)
- - occasionally 'process' notes by naming them and classifying them somewhere on the directory tree (with <localleader>n)
+ - occasionally 'process' notes by naming them and classifying them somewhere on the directory tree (with <localleader>n and <ll>c)
  - shadow some notes, notably personal writing, to keep a historical log - usually right after naming them (with <localleader>s)
 
 Possible directory tree (besides in/ and shadow/ or equivalent):
@@ -61,4 +67,4 @@ Possible directory tree (besides in/ and shadow/ or equivalent):
 %------------------------
 % CopyLeft by dalker
 % create date: 2015-11-01
-% modif  date: 2015-11-01
+% modif  date: 2015-11-07

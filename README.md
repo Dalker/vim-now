@@ -1,6 +1,6 @@
 ### Never Optimal Wiki - a pure vim minimalistic personal wiki
 
-* releases can be found at [vim.org](http://www.vim.org/scripts/script.php?script_id=5263)
+* releases can be found at [vim.org](http://www.vim.org/scripts/script.php?script_id=5263) - please vote there if you liked this plugin
 
 * more details on [README.now](https://github.com/Dalker/vim-now/blob/master/README.now)
 
