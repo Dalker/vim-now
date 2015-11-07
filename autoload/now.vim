@@ -5,29 +5,38 @@
 "  opening a NOW file during vim session   "
 """"""""""""""""""""""""""""""""""""""""""""
 "
-" function called from global mapping
+" functions called from ../plugin/now.vim   (global mappings)
+function! now#Index() " {{{
+  if !isdirectory(g:NOW_rootdir)
+    call mkdir(g:NOW_rootdir,"p")
+  endif
+  execute "normal! :edit " . g:NOW_rootdir . g:NOW_indexname . g:NOW_suffix . "\r"
+endfun
+"}}}
 function! now#RandomNote() " {{{
-  " random notes get into the following dir
-  execute "normal! :cd " . g:NOW_rootdir . g:NOW_randomdir  . "\r"
-  " what follows looks for the next available number and uses it
-  " to create a randomXX file
-  let l:nextnow = 1
-  let l:number  = 0
-  while l:nextnow > 0
+  " create random note dir if necessary, then enter it
+  let l:rndir = g:NOW_rootdir . g:NOW_randomdir
+  if !isdirectory(l:rndir)
+    call mkdir(l:rndir,"p")
+  endif
+  execute "normal! :cd " . l:rndir . "\r"
+  " look for the next available random note number
+  let l:number = 0
+  while l:number >= 0
     let l:number = l:number + 1
     if l:number < 10
       let l:currentfile = g:NOW_randombase . '0' . l:number . g:NOW_suffix
     else
       let l:currentfile = g:NOW_randombase . l:number . g:NOW_suffix
     endif
-    if ! filereadable(l:currentfile) 
-      let l:nextnow = l:currentfile
+    if ! filereadable(l:currentfile) " found available file name
+      let l:number = -1              " => exit loop
     endif
   endwhile
-  execute "normal! :e " . l:nextnow . "\r"
+  execute "normal! :edit " . l:currentfile . "\r"
 endfun
 "}}}
-" functions called from ftplugin
+" functions called from ../ftplugin/now.vim (buffer specific)
 function! now#SetSuffix() "{{{
   " set gf suffix (called from ftplugin) 
   execute "silent! normal! :set suffixesadd=" . g:NOW_suffix . "\r"
@@ -35,14 +44,14 @@ endfunction
 " }}}
 function! now#BufUp() "{{{
 " behaviour of - while on now files (mapped on ftplugin)
-  if expand('%:t') ==# g:NOW_indexname
+  if expand('%:t') ==# g:NOW_indexname . g:NOW_suffix
     " if on index file, leave it for netrw
     open ./
   else
     " if there's an index file, update and enter it
-    if filereadable(g:NOW_indexname)
+    if filereadable(g:NOW_indexname . g:NOW_suffix)
 "       execute "normal! :!nowindex\r"
-      execute "normal! :open " . g:NOW_indexname . "\r"
+      execute "normal! :open " . g:NOW_indexname . g:NOW_suffix . "\r"
     else
       " otherwise goto netrw
       open ./
