@@ -43,12 +43,9 @@ function! now#MakeIndex() " {{{
   execute "normal! :edit " . g:NOW_indexname . g:NOW_suffix . "\r"
   " then look at every file/dir from this location
   for l:file in split(glob('*'), '\n')
-    " is it already on the file? (possibly suffix-less)
+    " is it already on the file? (possibly suffix-less) if not, add it
     let l:pattern = substitute(l:file, g:NOW_suffix, '', '')
-    let v:errmsg = 'ok'
-    execute "silent! normal! :/" . l:pattern . "\r"
-    if v:errmsg != 'ok' && l:file !=# g:NOW_indexname . g:NOW_suffix
-      " if not present, then add it at the bottom of index file
+    if l:file !=# g:NOW_indexname . g:NOW_suffix && !search(l:pattern)
       execute "normal! Go./" . l:pattern
     endif
   endfor
