@@ -71,7 +71,7 @@ function! now#Shadow() "{{{
 endfunction "}}}
 function! now#Name() "{{{
 " name in place (mapped on ftplugin)
-  let l:answer = input("enter NOW name (without suffix) or <esc> to abort\n> ", "" , 'file') 
+  let l:answer = input("enter NOW name (without suffix) or <esc> to abort > ", "" , 'file') 
   " following should ensure that this renames file *in place*
   let l:destination = fnamemodify(l:answer . g:NOW_suffix, ":t")
   if l:answer ==# ""
@@ -90,7 +90,7 @@ function! now#Name() "{{{
 endfunction "}}}
 function! now#Classify() "{{{
 " classify, i.e. move elsewhere, with same name (mapped on ftplugin)
-  let l:answer = input("enter destination dir or <esc> to abort\n> ", g:NOW_classifydir , 'file')
+  let l:answer = input("enter destination dir or <esc> to abort > ", g:NOW_classifydir , 'file')
   " verify if no dir (abort), if dir exists, or if needs creation
   let l:dest_dir  = fnamemodify(l:answer, ":p")
   if l:answer ==# ""
