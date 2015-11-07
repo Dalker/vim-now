@@ -15,7 +15,8 @@ endfun
 "}}}
 function! now#RandomNote() " {{{
   " create random note dir if necessary, then enter it
-  let l:rndir = g:NOW_rootdir . g:NOW_randomdir
+  " note: '~' doesn't work for home dir in vim, so substitute with full path if needed
+  let l:rndir = substitute(g:NOW_rootdir , "\\~", $HOME, "") . g:NOW_randomdir
   if !isdirectory(l:rndir)
     call mkdir(l:rndir,"p")
   endif
