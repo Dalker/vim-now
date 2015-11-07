@@ -43,10 +43,12 @@ function! now#MakeIndex() " {{{
   execute "normal! :edit " . g:NOW_indexname . g:NOW_suffix . "\r"
   " then look at every file/dir from this location
   for l:file in split(glob('*'), '\n')
-    " is it already on the file? (possibly suffix-less) if not, add it
-    let l:pattern = substitute(l:file, g:NOW_suffix, '', '')
-    if l:file !=# g:NOW_indexname . g:NOW_suffix && !search(l:pattern)
-      execute "normal! Go./" . l:pattern
+    " is it already on the file? (possibly suffix-less)
+    let l:pattern = "./" . substitute(l:file, g:NOW_suffix, '', '')
+    " funny regexp aims to distinguish e.g. bla from bla.pdf
+    if l:file !=# g:NOW_indexname . g:NOW_suffix && !search(l:pattern . '\($\|[^\.]\)')
+      " it's not -> append it to last line
+      execute "normal! :$append" . "\r" . l:pattern . "\r"
     endif
   endfor
 endfun
