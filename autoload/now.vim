@@ -1,6 +1,9 @@
-"""""""""""""""""""""""""""""""""""
-" Never Optimal Wiki - vim plugin "
-"""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""
+" Never Optimal Wiki - function definition "
+""""""""""""""""""""""""""""""""""""""""""""
+"  these definitions are loaded on first   "
+"  opening a NOW file during vim session   "
+""""""""""""""""""""""""""""""""""""""""""""
 "
 " function called from global mapping
 function! now#RandomNote() " {{{

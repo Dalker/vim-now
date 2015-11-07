@@ -1,18 +1,22 @@
 """"""""""""""""""""""""""""""""""""""""
 " Never Optimal Wiki - filetype plugin "
 """"""""""""""""""""""""""""""""""""""""
+" navigation between pages is expected to be done the vim way, with 'gf' and 'ctrl-o'
 
-" Optional configuration {{{
+" Optional configuration
+" uncomment if autochdir not set in vimrc {{{
 " when entering a buffer, cd to its dir:
 " cd %:p:h 
-" uncomment the previous line if autochdir is not already set elsewhere in vimrc or .vim
-
-" navigation between pages is expected to be done the vim way, with 'gf' and 'ctrl-o'
-" optionally uncomment next line to also allow navigation with 'enter', to be consistent with netrw
+" }}}
+" optionally uncomment next line to also allow navigation with 'enter', to be consistent with netrw {{{
 nnoremap <buffer> <cr> gf
 " WARNING: the previous line overrides the standard map (where <return> is like + in normal mode)
 " }}}
 
+" Extra file navigation mappings
+" - goes up to either index or netrw using {{{
+nmap <buffer> - :call now#BufUp()<cr>
+"}}}
 " gf accepts NOW suffix as an auto-suffix {{{
 call now#SetSuffix()
 "}}}
@@ -22,9 +26,8 @@ nnoremap <buffer> <localleader>gf :call now#MimeOpenUnderCursor()<cr>
 " <ll>cf creates file or dir under cursor, possibly adding suffix {{{
 nnoremap <buffer> <localleader>cf :call now#CreateUnderCursor()<cr>gf
 "}}}
-" - goes up to either index or netrw using {{{
-nmap <buffer> - :call now#BufUp()<cr>
-"}}}
+
+" Mappings to move files around
 " <ll>s copies current file to shadow with date preprended {{{
 nmap <buffer> <LocalLeader>s :call now#Shadow()<cr>
 "}}}
@@ -35,14 +38,15 @@ nmap <buffer> <localleader>n :call now#Name()<cr>
 nmap <buffer> <localleader>c :call now#Classify()<cr>
 "}}}
 
+" Other properties of NOW buffers
 " allow some concealing "{{{
 setlocal conceallevel=2
 " see ../after/syntax/now.vim
 "}}}
 " folding based on sections started with =...= title "{{{
 setlocal foldmethod=syntax
-syn region myFold start="^=" end="^\n" transparent fold
-syn sync fromstart
+syntax region myFold start="^=" end="^\n" transparent fold
+syntax sync fromstart
 "}}}
 
 "------------------------
