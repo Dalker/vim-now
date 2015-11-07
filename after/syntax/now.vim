@@ -10,7 +10,7 @@ syntax match Comment "%.*"
 syntax match Title "=\+[^=]*=\+"
 
 " emphasized text: * ... * (non asterisks between asterisks)
-syntax match Special "\*[^\*]*\*"
+syntax match Special "\*\+[^\*]*\*\+"
 
 " links: they're simply proper paths, that *must* start with a dir name
 "" regexp 1: starts with ' ./' or ' /' or '  /'
@@ -28,4 +28,4 @@ syn match normal '\\eps' conceal cchar=ε
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-12
-" modif  date: 2015-11-01
+" modif  date: 2015-11-07
