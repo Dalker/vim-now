@@ -44,9 +44,8 @@ setlocal conceallevel=2
 " see ../after/syntax/now.vim
 "}}}
 " folding based on sections started with =...= title "{{{
-setlocal foldmethod=syntax
-syntax region myFold start="^=" end="^\n" transparent fold
-syntax sync fromstart
+setlocal foldmethod=expr
+setlocal foldexpr=now#SetFoldLevel(v:lnum)
 "}}}
 
 "------------------------

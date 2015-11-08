@@ -180,8 +180,23 @@ function! now#MimeOpenUnderCursor() "{{{
     execute "normal! :" . g:NOW_mimeopencmd . @z . "\r"
   endif
 endfun "}}}
+function! now#SetFoldLevel(lnum) "{{{
+  if getline(a:lnum) =~? '\v^\=\=\='
+    " 'subsubtitle' line - start level 3 fold
+    return '>3'
+  elseif getline(a:lnum) =~? '\v^\=\='
+    " 'subtitle' line - start level 2 fold
+    return '>2'
+  elseif getline(a:lnum) =~? '\v^\='
+    " 'title' line - start level 1 fold
+    return '>1'
+  else
+    " normal line - keep foldlevel
+    return '='
+  endif
+endfun "}}}
 "
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-11-07
+" modif  date: 2015-11-08
