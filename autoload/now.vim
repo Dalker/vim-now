@@ -46,7 +46,7 @@ function! now#MakeIndex() " {{{
     " is it already on the file? (possibly suffix-less)
     let l:pattern = "./" . substitute(l:file, g:NOW_suffix, '', '')
     " funny regexp aims to distinguish e.g. bla from bla.pdf
-    if l:file !=# g:NOW_indexname . g:NOW_suffix && !search(l:pattern . '\($\|[^\.]\)')
+    if l:file !=# g:NOW_indexname . g:NOW_suffix && !search(l:pattern . '\($\|[^\.]\)', 'nw')
       " it's not -> append it to last line
       execute "normal! :$append" . "\r" . l:pattern . "\r"
     endif
@@ -70,7 +70,7 @@ function! now#BufUp() "{{{
     call now#MakeIndex()
   else
     " otherwise goto netrw
-    open ./
+    edit ./
   endif
 endfunction "}}}
 function! now#Shadow() "{{{
@@ -199,4 +199,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-11-08
+" modif  date: 2015-12-06
