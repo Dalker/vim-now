@@ -15,14 +15,14 @@
 "   let g:NOW_indexname   = 'index'           " name of index files, without suffix               (used for <l>ni & -)
 "   let g:NOW_randombase  = 'random'          " base name for random note files                   (used for <l>nr)
 " external programs 
-"   let g:NOW_webbrowser  = '!firefox '       " choice of web browser                             (used for <ll>gf)
-"   let g:NOW_mimeopencmd = '!mimeopen '      " choice of mimeopen program                        (used for <ll>gf)
+"   let g:NOW_webbrowser  = '!firefox'        " choice of web browser                             (used for <ll>gf)
+"   let g:NOW_mimeopencmd = '!mimeopen'       " choice of mimeopen program                        (used for <ll>gf)
 " global key mappings
 "   let g:NOW_map_index   = '<leader>ni'      " go to NOW index  
 "   let g:NOW_map_index   = '<leader>nr'      " create new random note
 "   let g:NOW_map_mkindex = '<leader>nk'      " create/update local index
 "
-" For each option, default value is set unless user previously overridden by .vimrc
+" For each option, default value is set unless previously overridden by .vimrc
 function! <SID>SetOption(name, map) "{{{
   if !exists("g:NOW_" . a:name)
     execute "silent! normal! :let g:NOW_" . a:name . " = '" . a:map . "'\r"
@@ -67,4 +67,4 @@ execute "silent! normal! :nnoremap " . g:NOW_map_mkindex . " :call now#MakeIndex
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-11-07
+" modif  date: 2016-01-13

@@ -28,14 +28,14 @@ nnoremap <buffer> <localleader>cf :call now#CreateUnderCursor()<cr>gf
 "}}}
 
 " Mappings to move files around
-" <ll>s copies current file to shadow with date preprended {{{
-nmap <buffer> <LocalLeader>s :call now#Shadow()<cr>
-"}}}
 " <ll>n interactively names file to something else {{{
 nmap <buffer> <localleader>n :call now#Name()<cr>
 "}}}
 " <ll>c interactively classifies (moves) a  file somewhere else {{{
 nmap <buffer> <localleader>c :call now#Classify()<cr>
+"}}}
+" <ll>s copies current file to shadow with date preprended {{{
+nmap <buffer> <LocalLeader>s :call now#Shadow()<cr>
 "}}}
 
 " Other properties of NOW buffers

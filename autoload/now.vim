@@ -174,10 +174,10 @@ function! now#MimeOpenUnderCursor() "{{{
   execute "normal! :cd %:p:h\r"
   if @z =~# "^http://" ||  @z =~# "^https://" ||  @z =~# "^www."
     "this is assumed to be an url
-    execute "normal! :" . g:NOW_webbrowser . @z . "\r"
+    execute "normal! :" . g:NOW_webbrowser . " " . @z . "\r"
   else
     " use generic external open command
-    execute "normal! :" . g:NOW_mimeopencmd . @z . "\r"
+    execute "normal! :" . g:NOW_mimeopencmd. " " . @z . "\r"
   endif
 endfun "}}}
 function! now#SetFoldLevel(lnum) "{{{
@@ -199,4 +199,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2015-12-06
+" modif  date: 2016-01-13
