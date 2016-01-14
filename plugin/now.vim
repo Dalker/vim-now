@@ -19,7 +19,7 @@
 "   let g:NOW_mimeopencmd = '!mimeopen'       " choice of mimeopen program                        (used for <ll>gf)
 " global key mappings
 "   let g:NOW_map_index   = '<leader>ni'      " go to NOW index  
-"   let g:NOW_map_index   = '<leader>nr'      " create new random note
+"   let g:NOW_map_rnote   = '<leader>nr'      " create new random note
 "   let g:NOW_map_mkindex = '<leader>nk'      " create/update local index
 "
 " For each option, default value is set unless previously overridden by .vimrc

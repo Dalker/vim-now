@@ -3,12 +3,14 @@
 """"""""""""""""""""""""""""""""""""""""
 " navigation between pages is expected to be done the vim way, with 'gf' and 'ctrl-o'
 
-" Optional configuration
-" uncomment if autochdir not set in vimrc {{{
-" when entering a buffer, cd to its dir:
-" cd %:p:h 
-" }}}
-" optionally uncomment next line to also allow navigation with 'enter', to be consistent with netrw {{{
+" some adjustement of vim behaviour when in a NOW buffer
+" when entering a buffer, cd to its dir {{{
+"  (unless already done by global option)
+if &autochdir != 1
+  cd %:p:h 
+endif
+"}}}
+" allow navigation with 'enter', to be consistent with netrw {{{
 nnoremap <buffer> <cr> gf
 " WARNING: the previous line overrides the standard map (where <return> is like + in normal mode)
 " }}}
@@ -51,4 +53,4 @@ setlocal foldexpr=now#SetFoldLevel(v:lnum)
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2015-11-07
+" modif  date: 2016-01-14
