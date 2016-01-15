@@ -3,7 +3,7 @@
 """"""""""""""""""""""""""""""""""""""""
 " navigation between pages is expected to be done the vim way, with 'gf' and 'ctrl-o'
 
-" some adjustement of vim behaviour when in a NOW buffer
+" Some adjustement of vim behaviour when in a NOW buffer
 " when entering a buffer, cd to its dir {{{
 "  (unless already done by global option)
 if &autochdir != 1

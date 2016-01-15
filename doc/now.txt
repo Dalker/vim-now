@@ -1,6 +1,6 @@
-*now.txt*           A pure vim minimalistic personal wiki
+*now.txt*           A pure vim minimalistic personal wiki 
                        Never Optimal Wiki (N.O.W.)~
-                          CopyLeft Dalker 2015~
+                        CopyLeft Dalker 2015-2016~
 
 *NeverOptimalWiki* *now*
 =======================================================================
@@ -15,7 +15,6 @@
 5. Changelog ....................................... |now-changelog|
 6. Colophon ........................................ |now-about|
 
-
 =======================================================================
 
 1. Intro                                                    *now-intro*
@@ -23,9 +22,9 @@
 1.1 Why NOW?                                                *now-why*
 
 The author was dissatisfied with the complexities of the existing vim 
-wiki plugins, so he decided to create a minimalistic personal wiki pure
-vim plugin. The idea is to rely as much as possible on vim itself and
-the system's dir structure.
+wiki plugins, so he decided to create a minimalistic personal wiki 
+filetype. The idea is to rely as much as possible on vim itself as
+well as the system's dir structure.
 
 -----------------------------------------------------------------------
 
@@ -37,23 +36,35 @@ intended to work with the following workflow:
 - whenever a new idea or other input manifests itself, launch vim if
   not already there, and fill in a new "random entry", which will be
   initially an "anonymous file" in the random entries directory. This
-  is achieved by default with <leader>nr from anywhere in vim
+  is achieved with {<leader>nr} (by default) from anywhere within vim
 
 - at some point while writing or reviewing a random entry, it may be
-  named (i.e. it gets a proper filename) with <localleader>n . The
+  named (i.e. it gets a proper filename) with {<localleader>n}. The
   standard |now| suffix is automatically appended.
 
 - once the entry is somewhat stabilized, it can be classified (i.e. 
-  moved to an adequate zone in the dir structure) with <localleader>c
+  moved to an adequate zone in the dir structure) with {<localleader>c}
 
 - a dated backup of the entry may be created in the "shadow" dir at any 
-  time with <localleader>s
+  time with {<localleader>s}
 
-A few other simple |now-keybindings| are provided for ease of navigation.
+A few other simple |now-keybindings| are provided for ease of navigation,
+as well as some minimal |now-syntax| highlighting and folding.
+
+Linking between files is done the vim way, simply using {gf} or {enter}
+on its name. To highlight a word being a filename the syntax {./bla} is
+recommended and therefore highlighted. 
 
 -----------------------------------------------------------------------
 
 1.3 Simplest setup of NOW                            *now-setup-simple* 
+
+Cretea a dir for your default |now| location and add the following line 
+to your .vimrc:
+> let g:NOW_rootdir = '/path/to/your/now/dir'
+>
+Then try playing with the default |now-keybindings| and maybe obtain
+some |now-highlighting|.
 
 =======================================================================
 
@@ -65,7 +76,7 @@ A few other simple |now-keybindings| are provided for ease of navigation.
     <Leader>nk      - create/update index file at current working dir
 
 2.2 Local keybindings (within a |now| file)
-    -               - navigate 'up', to index file or to netrw
+    -               - navigate "up", to index file or to netrw
     <enter>         - navigate to file under cursor (like {gf})
     <LocalLeader>gf - mimeopen file under cursor
     <LocalLeader>cf - create file under cursor (possibly adding extension)
@@ -77,72 +88,76 @@ A few other simple |now-keybindings| are provided for ease of navigation.
 3. Options                                                *now-options*
 
 These can be set up from .vimrc to override the default values, as in the following example: 
-> let g:NOW_rootdir = '~/active/now/'
+> let g:NOW_rootdir = $HOME . '/active/now/'
 
 *g:NOW_rootdir*
-  base dir for NeverOptimaWiki, used by <l>ni
-  default value:  *'~/active/now/'*
+  base dir for NeverOptimaWiki, used by {<l>ni}
+  default value: {$HOME . '/active/now/'}
 
 *g:NOW_randomdir*
-  subdir for random notes, relative to NOW root dir, used by <l>nr
-  default value: *'in/'*
+  subdir for random notes, relative to NOW root dir, used by {<l>nr}
+  default value: {in/}
 
 *g:NOW_shadowdir*
-  subdir for date-sorted 'shadow' content, used by <ll>s
-  default value: *shadow/'*
+  subdir for date-sorted "shadow" content, used by {<ll>s}
+  default value: {shadow/}
 
 *g:NOW_classifydir*
-  subdir for classifiying, relative to {randomdir}, used by <ll>nc
-  default value: *'../circulating/'*
+  subdir for classifiying, relative to |g:NOW_randomdir|, used by {<ll>nc}
+  default value: {../circulating/}
 
 *g:NOW_suffix*      
   suffix for now files
-  default value: *'.now'*
+  default value: {.now}
 
 *g:NOW_indexname*
-  name of index files, without suffix, used by <l>ni and by {-}
-  default value: *'index'* 
+  name of index files, without suffix, used by {<l>ni} and by {-}
+  default value: {index}
 
 *g:NOW_randombase* 
-  base name for random entry files used by <l>nr
-  default value: *'random'*
+  base name for random entry files used by {<l>nr}
+  default value: {random}
 
 *g:NOW_webbrowser*
-  choice of web browser, used by <ll>gf
-  default value: *'!firefox'*
+  choice of web browser, used by {<ll>gf}
+  default value: {!firefox}
 
 *g:NOW_mimeopencmd*
-  choice of mimeopen program, used by <ll>gf
-  default value: *'!mimeopen'*
+  choice of mimeopen program, used by {<ll>gf}
+  default value: {!mimeopen}
 
 *g:NOW_map_index*
 *g:NOW_map_rnote*
 *g:NOW_map_mkindex*
-  global mappings, the description and default values of which can be found in the help section |now-keybindings|
+  global mappings, the description and default values of which can be 
+  found in the help section |now-keybindings|
 
 =======================================================================
 
 4. Syntax highlighting                                      *now-syntax*
 Very minimal syntax highlighting and folding is provided within a |now| buffer.
 
-./...
-/....
+{./bla}
+{/bla/bla}
   these are recognized as "links" and highlighted accordingly
+  they can be followed by {gf} or {enter} but so can any word if it's the
+  name of an actual existing file (with possible |g:NOW_suffix| appended
 
-= ... =
+{=bla=}
   this is recognized as a "title"; it is highlighted and can be folded
 
-* ... *
+{*bla*}
   this is recognized as "emphasized text" and highlighted accordingly
 
-# ...
-% ...
+{#bla}
+{%bla}
   both of these are recognized as "comments" and are highlighted.
 
 
 =======================================================================
 5. Changelog                              *now-changelog*           {{{
 
+* v0.5  - added this documentation, plus a few minor changes
 * v0.4: - user can now make index in local dir (default: {<l>nk})
         - navigation with {-} moves up to next index if available,
           auto-adding any new files at its bottom
@@ -176,5 +191,5 @@ Never Optimal Wiki released under "CopyLeft" GPLv2
 
 =======================================================================
 = create date: 2015-11-08                                             =~
-= modif  date: 2016-01-13
+= modif  date: 2016-01-15
 = vim: tw=70 ft=help foldenable fdm=marker fmr={{{,}}} fdl=0

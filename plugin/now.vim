@@ -6,21 +6,21 @@
 " Most users will only need to override g:NOW_rootdir and possibly optional external programs    
 "
 " directories
-"   let g:NOW_rootdir     = '~/active/now/'   " base dir for NeverOptimaWiki                      (used for <l>ni)
-"   let g:NOW_randomdir   = 'in/'             " subdir for random notes, relative to NOW root dir (used for <l>nr)
-"   let g:NOW_shadowdir   = 'shadow/'         " subdir for date-sorted 'shadow' content           (used for <ll>s) 
-"   let g:NOW_classifydir = '../circulating/' " default for classifying, relative to random notes (used for <ll>c)
+"   let g:NOW_rootdir     = $HOME.'/active/now/' " base dir for NeverOptimaWiki                      (used for <l>ni)
+"   let g:NOW_randomdir   = 'in/'                " subdir for random notes, relative to NOW root dir (used for <l>nr)
+"   let g:NOW_shadowdir   = 'shadow/'            " subdir for date-sorted 'shadow' content           (used for <ll>s) 
+"   let g:NOW_classifydir = '../circulating/'    " default for classifying, relative to random notes (used for <ll>c)
 " file names
-"   let g:NOW_suffix      = '.now'            " suffix for now files
-"   let g:NOW_indexname   = 'index'           " name of index files, without suffix               (used for <l>ni & -)
-"   let g:NOW_randombase  = 'random'          " base name for random note files                   (used for <l>nr)
+"   let g:NOW_suffix      = '.now'               " suffix for now files
+"   let g:NOW_indexname   = 'index'              " name of index files, without suffix               (used for <l>ni & -)
+"   let g:NOW_randombase  = 'random'             " base name for random note files                   (used for <l>nr)
 " external programs 
-"   let g:NOW_webbrowser  = '!firefox'        " choice of web browser                             (used for <ll>gf)
-"   let g:NOW_mimeopencmd = '!mimeopen'       " choice of mimeopen program                        (used for <ll>gf)
+"   let g:NOW_webbrowser  = '!firefox'           " choice of web browser                             (used for <ll>gf)
+"   let g:NOW_mimeopencmd = '!mimeopen'          " choice of mimeopen program                        (used for <ll>gf)
 " global key mappings
-"   let g:NOW_map_index   = '<leader>ni'      " go to NOW index  
-"   let g:NOW_map_rnote   = '<leader>nr'      " create new random note
-"   let g:NOW_map_mkindex = '<leader>nk'      " create/update local index
+"   let g:NOW_map_index   = '<leader>ni'         " go to NOW index  
+"   let g:NOW_map_rnote   = '<leader>nr'         " create new random note
+"   let g:NOW_map_mkindex = '<leader>nk'         " create/update local index
 "
 " For each option, default value is set unless previously overridden by .vimrc
 function! <SID>SetOption(name, map) "{{{
@@ -29,7 +29,7 @@ function! <SID>SetOption(name, map) "{{{
   endif
 endfunction "}}}
 " directories {{{
-call <SID>SetOption("rootdir",     '~/active/now/')
+call <SID>SetOption("rootdir", $HOME . "/active/now/")
 call <SID>SetOption("randomdir",   'in/')    
 call <SID>SetOption("shadowdir",   'shadow/')
 call <SID>SetOption("classifydir", '../circulating/')      
@@ -67,4 +67,4 @@ execute "silent! normal! :nnoremap " . g:NOW_map_mkindex . " :call now#MakeIndex
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-01-13
+" modif  date: 2016-01-15
