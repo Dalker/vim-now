@@ -77,9 +77,9 @@ function! now#Shadow() "{{{
 " copy current file to shadow dir (mapped on ftplugin)
   " shadowed contents have a date prefixed to the file name, to keep
   " a historical record of contents
-  let l:destination = g:NOW_rootdir . g:NOW_shadowdir . strftime('%Y.%m.%d') . '-' . expand('%:t')
+  let l:destination = strftime('%Y.%m.%d') . '-' . expand('%:t')
   let l:actual_file = expand('%:p')
-  execute 'normal! :saveas ' . l:destination . "\r"
+  execute 'normal! :saveas ' . g:NOW_rootdir . g:NOW_shadowdir . l:destination . "\r"
   execute 'normal! :e '      . l:actual_file . "\r"
   execute 'normal! :bd '     . l:destination . "\r"
 endfunction "}}}
@@ -199,4 +199,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-01-13
+" modif  date: 2016-01-17
