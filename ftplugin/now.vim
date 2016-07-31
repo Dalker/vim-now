@@ -17,7 +17,7 @@ nnoremap <buffer> <cr> gf
 
 " Extra file navigation mappings
 " - goes up to either index or netrw using {{{
-nmap <buffer> - :call now#BufUp()<cr>
+" nmap <buffer> - :call now#BufUp()<cr>
 "}}}
 " gf accepts NOW suffix as an auto-suffix {{{
 call now#SetSuffix()
@@ -48,9 +48,10 @@ setlocal conceallevel=2
 " folding based on sections started with =...= title "{{{
 setlocal foldmethod=expr
 setlocal foldexpr=now#SetFoldLevel(v:lnum)
+setlocal foldlevel=1
 "}}}
 
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2016-01-14
+" modif  date: 2016-07-31
