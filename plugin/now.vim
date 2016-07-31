@@ -57,14 +57,14 @@ execute 'silent! normal! :autocmd BufNewFile,BufRead *' . g:NOW_suffix . " set f
 " }}}
 " Setup global mappings - usable from anywhere on vim{{{
 " - access NOW index from anywhere on vim
-" execute "silent! normal! :nnoremap " . g:NOW_map_index . " :e" g:NOW_rootdir . g:NOW_indexname . "<cr>" . "\r"
 execute "silent! normal! :nnoremap " . g:NOW_map_index . " :call now#Index()<cr>". "\r" 
 " - create a new file labeled randomNN for next available natural NN and edit it
 execute "silent! normal! :nnoremap " . g:NOW_map_rnote . " :call now#RandomNote()<cr>". "\r" 
+" - create or update local directory's now index
 execute "silent! normal! :nnoremap " . g:NOW_map_mkindex . " :call now#MakeIndex()<cr>". "\r" 
 "}}}
 "
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-01-15
+" modif  date: 2016-07-31
