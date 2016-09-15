@@ -59,6 +59,18 @@ function! now#SetSuffix() "{{{
   execute "silent! normal! :set suffixesadd=" . g:NOW_suffix . "\r"
 endfunction
 " }}}
+function! now#BufEnter() "{{{
+" behaviour of <enter> while on now files (mapped on ftplugin)
+  let l:dest = expand("<cfile>")
+  if isdirectory(l:dest)
+    " if pointing to a directory, update and enter index file there
+    execute 'normal! :cd ' . l:dest . "\r"
+    call now#MakeIndex()
+  else
+    " otherwise edit the file, whether it exists or not
+    execute 'normal! :e ' . l:dest . "\r"
+  endif
+endfunction "}}}
 function! now#BufUp() "{{{
 " behaviour of - while on now files (mapped on ftplugin)
   if expand('%:t') ==# g:NOW_indexname . g:NOW_suffix
@@ -82,10 +94,11 @@ function! now#Shadow() "{{{
   execute 'normal! :saveas ' . g:NOW_rootdir . g:NOW_shadowdir . l:destination . "\r"
   execute 'normal! :e '      . l:actual_file . "\r"
   execute 'normal! :bd '     . l:destination . "\r"
+  execute 'normal! :echo "made a shadow copy of file"' . "\r"
 endfunction "}}}
 function! now#Name() "{{{
 " name in place (mapped on ftplugin)
-  let l:answer = input("enter NOW name (without suffix) or <esc> to abort > ", "" , 'file') 
+  let l:answer = input("enter NOW name (without suffix) or <esc> to abort : ", "" , 'file') 
   " following should ensure that this renames file *in place*
   let l:destination = fnamemodify(l:answer . g:NOW_suffix, ":t")
   if l:answer ==# ""
@@ -104,14 +117,14 @@ function! now#Name() "{{{
 endfunction "}}}
 function! now#Classify() "{{{
 " classify, i.e. move elsewhere, with same name (mapped on ftplugin)
-  let l:answer = input("enter destination dir or <esc> to abort > ", g:NOW_classifydir , 'file')
+  let l:answer = input("enter destination dir or <esc> to abort : ", g:NOW_classifydir , 'file')
   " verify if no dir (abort), if dir exists, or if needs creation
   let l:dest_dir  = fnamemodify(l:answer, ":p")
   if l:answer ==# ""
     echo "\nNOW classifying aborted by user"
     return
   elseif isdirectory(l:dest_dir) == 0 " in vim false is set as 0
-    let l:create_dir = input("directory " . l:dest_dir . "does not exist. Create? (yes/*) > ", "" )
+    let l:create_dir = input("directory " . l:dest_dir . "does not exist. Create? (yes/*) : ", "" )
     if l:create_dir ==# "yes"
       call mkdir (l:dest_dir, "p")
     else
@@ -199,4 +212,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-01-17
+" modif  date: 2016-08-17
