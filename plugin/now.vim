@@ -18,9 +18,10 @@
 "   let g:NOW_webbrowser  = '!firefox'           " choice of web browser                             (used for <ll>gf)
 "   let g:NOW_mimeopencmd = '!mimeopen'          " choice of mimeopen program                        (used for <ll>gf)
 " global key mappings
-"   let g:NOW_map_index   = '<leader>ni'         " go to NOW index  
+"   let g:NOW_map_index   = '<leader>nn'         " go to NOW main index  
 "   let g:NOW_map_rnote   = '<leader>nr'         " create new random note
-"   let g:NOW_map_mkindex = '<leader>nk'         " create/update local index
+"   let g:NOW_map_mkindex = '<leader>ni'         " create/update and goto local index
+"   let g:NOW_map_mkindex = '<leader>nh'         " show NOW help
 "
 " For each option, default value is set unless previously overridden by .vimrc
 function! <SID>SetOption(name, map) "{{{
@@ -44,9 +45,10 @@ call <SID>SetOption("webbrowser", '!firefox ')
 call <SID>SetOption("mimeopencmd",'!mimeopen ')
 "}}}
 " global key mappings "{{{
-call <SID>SetOption("map_index",   "<leader>ni") " go to NOW index
+call <SID>SetOption("map_index",   "<leader>nn") " go to NOW index
 call <SID>SetOption("map_rnote",   "<leader>nr") " edit new random note
-call <SID>SetOption("map_mkindex", "<leader>nk") " make index at cwd
+call <SID>SetOption("map_mkindex", "<leader>ni") " create/update and goto index at cwd
+call <SID>SetOption("map_help",    "<leader>nh") " show NOW help
 "}}}
 
 " Once options are set, plugin is initialized
@@ -62,9 +64,11 @@ execute "silent! normal! :nnoremap " . g:NOW_map_index . " :call now#Index()<cr>
 execute "silent! normal! :nnoremap " . g:NOW_map_rnote . " :call now#RandomNote()<cr>". "\r" 
 " - create or update local directory's now index
 execute "silent! normal! :nnoremap " . g:NOW_map_mkindex . " :call now#MakeIndex()<cr>". "\r" 
+" - show NOW help from anywhere
+execute "silent! normal! :nnoremap " . g:NOW_map_help . " :help now<cr>". "\r" 
 "}}}
 "
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-07-31
+" modif  date: 2016-08-10

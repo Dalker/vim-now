@@ -11,13 +11,14 @@ if &autochdir != 1
 endif
 "}}}
 " allow navigation with 'enter', to be consistent with netrw {{{
-nnoremap <buffer> <cr> gf
+" nnoremap <buffer> <cr> gf
+nnoremap <buffer> <cr> :call now#BufEnter()<cr>
 " WARNING: the previous line overrides the standard map (where <return> is like + in normal mode)
 " }}}
 
 " Extra file navigation mappings
-" - goes up to either index or netrw using {{{
-" nmap <buffer> - :call now#BufUp()<cr>
+" - goes up to either index or netrw {{{
+nmap <buffer> - :call now#BufUp()<cr>
 "}}}
 " gf accepts NOW suffix as an auto-suffix {{{
 call now#SetSuffix()
