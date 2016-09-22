@@ -70,7 +70,7 @@ function! now#BufEnter() "{{{
     " otherwise edit the file, whether it exists or not
     " N.B: this is a bit tricky, because <cfile> does not detect an optional
     " suffix, as discussed in the following Q/A topic:
-    " https://vi.stackexchange.com/questions/9627/how-can-i-get-vim-to-include-suffixes-in-cfile
+    " https://vi.stackexchange.com/q/9627/2058
     try
       " if a file can be found, with optional suffix, open it
       normal gf
