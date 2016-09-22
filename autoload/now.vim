@@ -68,7 +68,16 @@ function! now#BufEnter() "{{{
     call now#MakeIndex()
   else
     " otherwise edit the file, whether it exists or not
-    execute 'normal! :e ' . l:dest . "\r"
+    " N.B: this is a bit tricky, because <cfile> does not detect an optional
+    " suffix, as discussed in the following Q/A topic:
+    " https://vi.stackexchange.com/questions/9627/how-can-i-get-vim-to-include-suffixes-in-cfile
+    try
+      " if a file can be found, with optional suffix, open it
+      normal gf
+    catch
+      " otherwise, create the file pointed to
+      execute 'normal! :e ' . l:dest . g:NOW_suffix . "\r"
+    endtry
   endif
 endfunction "}}}
 function! now#BufUp() "{{{
@@ -212,4 +221,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-08-17
+" modif  date: 2016-09-22
