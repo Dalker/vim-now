@@ -20,12 +20,15 @@ syntax match Keyword "[\. \t\~]/[a-zA-Z/\_\-\.]\+"
 " syntax match Keyword "^/\f\+"
 syntax match Keyword "^/[a-zA-Z/\_\-\.]\+"
 " note that acceptable characters are more restricted than with \f (e.g. comma is forbidden)
+"" an URL is also a possible link
+syntax match Keyword "www\.[a-zA-Z/\_\-\.]\+" 
+syntax match Keyword "https\?\:\/\/[a-zA-Z/\_\-\.]\+"
 
-" conceals (visual replacement of text on non-cursor lines)
-"" LaTeX-style greek letters
+" possible future extention: conceals (visual replacement of text on non-cursor lines)
+"" as an example: LaTeX-style greek letters
 syn match normal '\\eps' conceal cchar=ε
 
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-12
-" modif  date: 2015-11-07
+" modif  date: 2016-10-07
