@@ -18,18 +18,18 @@ Configuration:
 
 Features:
  - From anywhere within vim: (<l> means <leader>)
-  *<l>ni*  goes to main index
+  *<l>nn*  updates and opens root now index
+  *<l>ni*  creates/updates local index file in current dir
   *<l>nr*  creates new random note (in a predefined 'in' dir)
-  *<l>nk*  creates/updates local index file in current dir
 
  - Within a NOW buffer: (<ll> means <localleader>)
   *gf*     open dir or file under cursor, adding suffix if needed (vim standard)
-  *<cr>*   same as above
   *Ctrl-O* go back to previous location (vim standard) 
   *<ll>cf* create file or dir under cursor, adding suffix if needed
   *<ll>gf* open under cursor with external program, which must be properly configured
            (the defaults are 'firefox' for URLs and 'mimeopen' for anything
             else, which should work well in a Linux environment)
+  *<cr>*   automatically decides whether to act as <ll>gf, gf or <ll>cf
   *-*      go up to either dir's index.now file if available or to a netrw view of current directory
   *<ll>n*  interactively (re)name a (random note) file in place
   *<ll>c*  interactively move a (random note) somewhere else, keeping the same name
@@ -68,4 +68,4 @@ Possible directory tree (besides in/ and shadow/ or equivalent):
 %------------------------
 % CopyLeft by dalker
 % create date: 2015-11-01
-% modif  date: 2015-11-07
+% modif  date: 2016-10-07

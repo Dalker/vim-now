@@ -8,6 +8,8 @@
   1.  cd on a console to wherever the local 'bundle' directory is located, then:
 
       > git clone https://github.com/Dalker/vim-now
-  2.  test and read further instructions for optional customization with:
+  2.  (optionally) setup location of desired NOW root dir in .vimrc
 
-      > vim vim-now/README.now
+      > let g:NOW_rootdir = '~/location/of/rootdir/'
+  3.  open vim and read the help accessible with <leader>nh
+
