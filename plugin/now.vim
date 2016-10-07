@@ -23,12 +23,13 @@
 "   let g:NOW_map_mkindex = '<leader>ni'         " create/update and goto local index
 "   let g:NOW_map_mkindex = '<leader>nh'         " show NOW help
 "
-" For each option, default value is set unless previously overridden by .vimrc
+" First, define an option setting function
 function! <SID>SetOption(name, map) "{{{
   if !exists("g:NOW_" . a:name)
     execute "silent! normal! :let g:NOW_" . a:name . " = '" . a:map . "'\r"
   endif
 endfunction "}}}
+" For each option, default value is set unless previously overridden in user's .vimrc
 " directories {{{
 call <SID>SetOption("rootdir", $HOME . "/active/now/")
 call <SID>SetOption("randomdir",   'in/')    
