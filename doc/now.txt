@@ -51,9 +51,15 @@ intended to work with the following workflow:
 A few other simple |now-keybindings| are provided for ease of navigation,
 as well as some minimal |now-syntax| highlighting and folding.
 
-Linking between files is done the vim way, simply using {gf} or {enter}
-on its name. To highlight a word being a filename the syntax {./bla} is
-recommended and therefore highlighted. 
+Linking between files is done the vim way, simply using {gf} on its
+name, or with the overridden {enter} key that also checks if what is
+pointed to looks like an URL (opened with web browser) or a recognized
+mimetype (opened with mime opener), as well as creating the file if it
+doesn't exist. Web browser and mime opener have default values that are
+overrideable |now-options|.
+
+It is recommended to emphasize that a word is a link by clarifying it
+is meant as a filename, such as {./word}. Obvious links are highlighted.
 
 -----------------------------------------------------------------------
 
@@ -70,15 +76,15 @@ some |now-highlighting|.
 
 2. Keybindings                                        *now-keybindings*
 
-2.1 Global keybindings (may be overridden)
-    <Leader>ni      - go to |now| index
-    <Leader>nr      - edit a new random entry
-    <Leader>nk      - create/update index file at current working dir
+2.1 Global keybindings (may be overridden with |now-options|)
+    <Leader>nn      - update and enter |now| root index
+    <Leader>ni      - update and enter |now| current directory index
+    <Leader>nr      - create and edit a new random entry
 
 2.2 Local keybindings (within a |now| file)
     -               - navigate "up", to index file or to netrw
-    <enter>         - navigate to file under cursor (like {gf})
-    <LocalLeader>gf - mimeopen file under cursor
+    <enter>         - navigate to file under cursor (as {gf}) or create it
+    <LocalLeader>gf - browse URL or mimeopen file under cursor
     <LocalLeader>cf - create file under cursor (possibly adding extension)
     <LocalLeader>n  - name file (no need to type the extension)
     <LocalLeader>c  - classify file (i.e. move somewhere else)
@@ -87,11 +93,12 @@ some |now-highlighting|.
 =======================================================================
 3. Options                                                *now-options*
 
-These can be set up from .vimrc to override the default values, as in the following example: 
+These can be set up on |.vimrc| to override the default values, as in the 
+following example: 
 > let g:NOW_rootdir = $HOME . '/active/now/'
 
 *g:NOW_rootdir*
-  base dir for NeverOptimaWiki, used by {<l>ni}
+  base dir for NeverOptimaWiki, used by {<l>nn}
   default value: {$HOME . '/active/now/'}
 
 *g:NOW_randomdir*
@@ -103,7 +110,7 @@ These can be set up from .vimrc to override the default values, as in the follow
   default value: {shadow/}
 
 *g:NOW_classifydir*
-  subdir for classifiying, relative to |g:NOW_randomdir|, used by {<ll>nc}
+  default subdir for classifiying, relative to |g:NOW_randomdir|, used by {<ll>nc}
   default value: {../circulating/}
 
 *g:NOW_suffix*      
@@ -139,9 +146,12 @@ Very minimal syntax highlighting and folding is provided within a |now| buffer.
 
 {./bla}
 {/bla/bla}
+{http[s]://bla}
+{www.bla}
   these are recognized as "links" and highlighted accordingly
   they can be followed by {gf} or {enter} but so can any word if it's the
-  name of an actual existing file (with possible |g:NOW_suffix| appended
+  name of an actual existing file (with possible |g:NOW_suffix| appended)
+  or URL (with {enter} only, not with {gf})
 
 {=bla=}
   this is recognized as a "title"; it is highlighted and can be folded
@@ -157,7 +167,10 @@ Very minimal syntax highlighting and folding is provided within a |now| buffer.
 =======================================================================
 5. Changelog                              *now-changelog*           {{{
 
+* v0.6  - overhauled behaviour of <enter> (seek or create)
 * v0.5  - added this documentation, plus a few minor changes
+  v0.5.1: bugfix release
+
 * v0.4: - user can now make index in local dir (default: {<l>nk})
         - navigation with {-} moves up to next index if available,
           auto-adding any new files at its bottom

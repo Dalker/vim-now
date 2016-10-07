@@ -61,11 +61,20 @@ endfunction
 " }}}
 function! now#BufEnter() "{{{
 " behaviour of <enter> while on now files (mapped on ftplugin)
+  " determine potential destination and its suffix, if present
   let l:dest = expand("<cfile>")
+  let l:destsuffix = strpart(l:dest, match(l:dest, '\.[a-zA-Z]\+$'))
+  " then decide what to do
   if isdirectory(l:dest)
     " if pointing to a directory, update and enter index file there
     execute 'normal! :cd ' . l:dest . "\r"
     call now#MakeIndex()
+  elseif l:dest =~# "^http://" ||  l:dest =~# "^https://" ||  l:dest =~# "^www."
+    " f destination assumed to be an url, invoke web browser
+    execute "normal! :" . g:NOW_webbrowser . " " . l:dest . "\r"
+  elseif filereadable(l:dest) && count(g:NOW_mimesuffixes, l:destsuffix) > 0
+    " f destination assumed to be externally openable, invoke mime opener
+    execute "normal! :" . g:NOW_mimeopencmd. " " . l:dest . "\r"
   else
     " otherwise edit the file, whether it exists or not
     " N.B: this is a bit tricky, because <cfile> does not detect an optional
@@ -221,4 +230,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-09-22
+" modif  date: 2016-10-07
