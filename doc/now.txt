@@ -167,7 +167,8 @@ Very minimal syntax highlighting and folding is provided within a |now| buffer.
 =======================================================================
 5. Changelog                              *now-changelog*           {{{
 
-* v0.6  - overhauled behaviour of <enter> (seek or create)
+* v0.6  - overhauled behaviour of <enter> (auto-open urls, possibly
+          delegate to external mime opener, possibly create file)
 * v0.5  - added this documentation, plus a few minor changes
   v0.5.1: bugfix release
 
