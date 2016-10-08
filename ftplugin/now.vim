@@ -17,7 +17,7 @@ nnoremap <buffer> <cr> :call now#BufEnter()<cr>
 " }}}
 
 " Extra file navigation mappings
-" - goes up to either index or netrw {{{
+" - goes up to index (if it exists) or netrw {{{
 nmap <buffer> - :call now#BufUp()<cr>
 "}}}
 " gf accepts NOW suffix as an auto-suffix {{{
@@ -55,4 +55,4 @@ setlocal foldlevel=1
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2016-07-31
+" modif  date: 2016-10-08

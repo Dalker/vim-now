@@ -68,7 +68,13 @@ function! now#BufEnter() "{{{
   if isdirectory(l:dest)
     " if pointing to a directory, update and enter index file there
     execute 'normal! :cd ' . l:dest . "\r"
-    call now#MakeIndex()
+    if filereadable(g:NOW_indexname . g:NOW_suffix)
+      " if there's an index file, update and enter it
+      call now#MakeIndex()
+    else
+      " otherwise goto netrw
+      edit ./
+    endif
   elseif l:dest =~# "^http://" ||  l:dest =~# "^https://" ||  l:dest =~# "^www."
     " f destination assumed to be an url, invoke web browser
     execute "normal! :" . g:NOW_webbrowser . " " . l:dest . "\r"
@@ -230,4 +236,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-10-07
+" modif  date: 2016-10-08
