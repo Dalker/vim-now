@@ -217,8 +217,12 @@ function! now#MimeOpenUnderCursor() "{{{
     execute "normal! :" . g:NOW_mimeopencmd. " " . @z . "\r"
   endif
 endfun "}}}
+" function called when folding
 function! now#SetFoldLevel(lnum) "{{{
-  if getline(a:lnum) =~? '\v^\=\=\='
+  if getline(a:lnum) =~? '\v^\=\=\=\='
+    " 'subsubtitle' line - start level 3 fold
+    return '>4'
+  elseif getline(a:lnum) =~? '\v^\=\=\='
     " 'subsubtitle' line - start level 3 fold
     return '>3'
   elseif getline(a:lnum) =~? '\v^\=\='
