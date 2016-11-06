@@ -37,18 +37,18 @@ function! <SID>SetOption(name, map) "{{{
   endif
 endfunction "}}}
 " interactively (re)name file (default: <ll>n) {{{
-call <SID>SetOption("map_name",   "<localleader>n") " (re)name file
+call <SID>SetOption("map_name", "<localleader>n") " (re)name file
 execute "silent! normal! :nnoremap " . g:NOW_map_name . " :call now#Name()<cr>". "\r" 
 "}}}
-" interactively move file (default key: <ll>m, {{{
-"                          default destination: g:NOW_classifydir)
-call <SID>SetOption("map_move",   "<localleader>m") " move file
-execute "silent! normal! :nnoremap " . g:NOW_map_move . " :call now#Classify()<cr>". "\r" 
+" interactively classify file, i.e. move to other dir, keeping name (default {{{
+"                         key: <ll>c, default destination: g:NOW_classifydir)
+call <SID>SetOption("map_classify", "<localleader>c") " classify file
+execute "silent! normal! :nnoremap " . g:NOW_map_classify . " :call now#Classify()<cr>". "\r" 
 "}}}
-" archive current file, with preprending date (default key: <ll>a, {{{
-"                                              destination: g:NOW_shadowdir)
-call <SID>SetOption("map_archive",   "<localleader>a") " move file
-execute "silent! normal! :nnoremap " . g:NOW_map_archive . " :call now#Shadow()<cr>". "\r" 
+" make a 'shadow' copy of file, preprending date (default key: <ll>a, {{{
+"                                                 destination: g:NOW_shadowdir)
+call <SID>SetOption("map_shadow", "<localleader>s") " make a shadow copy of file
+execute "silent! normal! :nnoremap " . g:NOW_map_shadow . " :call now#Shadow()<cr>". "\r" 
 "}}}
 
 " Other properties of NOW buffers

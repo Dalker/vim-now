@@ -82,14 +82,15 @@ some |now-highlighting|.
     <Leader>nr      - create and edit a new random entry
 
 2.2 Local keybindings (within a |now| file)
-    -               - navigate "up", to index file or to netrw
-    <enter>         - navigate to file under cursor (as {gf}) or create it
     <LocalLeader>gf - browse URL or mimeopen file under cursor
     <LocalLeader>cf - create file under cursor (possibly adding extension)
+    <enter>         - automatically do one of the above or act as {gf}
+    -               - navigate "up", to index file (if any) or to netrw
     The following may be overridden with |now-options|:
     <LocalLeader>n  - name file (no need to type the extension)
-    <LocalLeader>m  - move file (default location set in |now-options|)
-    <LocalLeader>a  - archive file (i.e. make a dated copy in shadow dir)
+    <LocalLeader>c  - classify file, i.e. move to other dir, keeping name 
+                      (default location set in |now-options|)
+    <LocalLeader>s  - shadow file (i.e. make a dated copy in shadow dir)
 
 =======================================================================
 3. Options                                                *now-options*
@@ -97,53 +98,49 @@ some |now-highlighting|.
 These can be set up on |.vimrc| to override the default values, as in the 
 following example: 
 > let g:NOW_rootdir = $HOME . '/active/now/'
+>
+3.1 Directories and filenames
 
-*g:NOW_rootdir*
-  base dir for NeverOptimaWiki, used by *g:NOW_map_index*
-  default value: {$HOME . '/active/now/'}
+*g:NOW_suffix* (default: {.now})
+  suffix for NOW files, used by most mappings
 
-*g:NOW_randomdir*
-  subdir for random notes, relative to NOW root dir, used by *g:NOW_map_rnote*
-  default value: {in/}
+*g:NOW_rootdir* (default: {$HOME . '/now/'})
+  base dir for NeverOptimaWiki, used by |g:NOW_map_goroot|
 
-*g:NOW_shadowdir*
-  subdir for date-sorted "shadow" content, used by *g:NOW_map_archive*
-  default value: {shadow/}
+*g:NOW_randomdir* (default: {g:NOW_rootdir . 'in/'})
+  dir for random notes, used by |g:NOW_map_rnote|
 
-*g:NOW_classifydir*
-  default subdir for moving, relative to |g:NOW_randomdir|, 
-                             used by *g:NOW_map_move*
-  default value: {../circulating/}
+*g:NOW_shadowdir* (default: {g:NOW_rootdir . 'shadow/'})
+  dir for date-sorted "shadow" archives, used by |g:NOW_map_shadow|
 
-*g:NOW_suffix*      
-  suffix for now files
-  default value: {.now}
+*g:NOW_classifydir* (default: {g:NOW_rootdir . 'circulating/'})
+  default destination for |g:NOW_map_classify|
 
-*g:NOW_indexname*
-  name of index files, without suffix, used by *g:NOW_map_index* and by *-*
-  default value: {index}
+*g:NOW_indexname* (default: {index})
+  name of index files, without suffix, used by |g:NOW_map_goroot| and by {-}
 
-*g:NOW_randombase* 
-  base name for random entry files used by *g:NOW_map_rnote*
-  default value: {random}
+*g:NOW_randombase* (default: {random})
+  base name for random entry files used by |g:NOW_map_rnote|
 
-*g:NOW_webbrowser*
-  choice of web browser, used by *<ll>gf* and *-*
-  default value: {!firefox}
+3.2 Key bindings
 
-*g:NOW_mimeopencmd*
-  choice of mimeopen program, used by *<ll>gf* and *-*
-  default value: {!mimeopen}
-
-*g:NOW_map_index*   (default: {<l>nn})
+*g:NOW_map_goroot*  (default: {<l>nn})
 *g:NOW_map_rnote*   (default: {<l>nr})
 *g:NOW_map_mkindex* (default: {<l>ni})
-  global mappings, described in section |now-keybindings|
+  global mappings, described in |now-keybindings|
 
-*g:NOW_map_name*    (default: {<ll>n})
-*g:NOW_map_move*    (default: {<ll>m})
-*g:NOW_map_archive* (default: {<ll>a})
-  local mappings, described in section |now-keybindings|
+*g:NOW_map_name*     (default: {<ll>n})
+*g:NOW_map_classify* (default: {<ll>m})
+*g:NOW_map_shadow*   (default: {<ll>a})
+  local mappings, described in |now-keybindings|
+
+3.3 Auxiliary programs
+
+*g:NOW_webbrowser* (default: {!firefox})
+  choice of web browser, used by {<ll>gf} and {-}
+
+*g:NOW_mimeopencmd* (default: {!mimeopen})
+  choice of mimeopen program, used by {<ll>gf} and {-}
 
 =======================================================================
 
@@ -211,5 +208,5 @@ Never Optimal Wiki released under "CopyLeft" GPLv2
 
 =======================================================================
 = create date: 2015-11-08                                             =~
-= modif  date: 2016-01-15
+= modif  date: 2016-11-06
 = vim: tw=70 ft=help foldenable fdm=marker fmr={{{,}}} fdl=0

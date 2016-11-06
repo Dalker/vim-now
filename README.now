@@ -1,56 +1,76 @@
 = Never Optimal Wiki - a minimalistic pure vim personal wiki =
 
-Main goal: - to facilitate the dumping and processing of random notes within vim
-           - may also be used to track personal projects/tasks and such
+*Main goal*: - to facilitate dumping and processing of random notes within vim
+             - may also be used to track personal projects/tasks and such
 
-Rationale: after having tried several wiki vim plugins and several personal wiki workflows, the author realized
-           that: a) full 'wiki' plugins tend to have too many features and impose too many conventions on the user
-                 b) no personal note-taking workflow is ever optimal ("never optimal")
-                 c) to actually get something written or done, you have to do it NOW (on a Never Optimal Wiki)
+*Rationale*: after having tried several wiki vim plugins and several personal 
+             wiki workflows, the author realized that:
+             a) full 'wiki' plugins tend to have too many features and impose 
+                too many conventions on the user
+             b) no personal note-taking workflow is ever optimal ("never optimal")
+             c) to actually get something written or done, you have to do it now 
+                (on a Never Optimal Wiki - aka NOW)
 
-Contents: ./plugin/now.vim, ./ftplugin/now.vim, ./after/syntax/now.vim and ./autoload/now.vim
+*Contents*: ./plugin/now.vim, ./ftplugin/now.vim, ./after/syntax/now.vim 
+            ./autoload/now.vim and ./doc/now.txt, as well as this ./README.now
 
-Configuration:
- - Most probably the single option that will need to be set by the user is the root dir of the never optimal wiki:
+== Configuration ==
+Most probably the single option that will need to be set by the user is the root dir of the never optimal wiki:
     > let g:NOW_rootdir = '~/location/of/rootdir/'
- - user is expected to have *leader* and *localleader* already set up in his .vimrc (see *:help leader*) 
-   if this is not the case, vim will provide the \ key as the default for both leader and mapleader
- - it is recommended to *:set autochdir* globally (in .vimrc - see *:help autochdir*)
-   if this is not the case, *now* files will still behave as if it was set (without affectinf other files)
 
-Features (all key bindings can be changed: see *:help now*):
- - From anywhere within vim: (<l> means <leader>, or \ if leader not set up in .vimrc)
+User is expected to have *leader* and *localleader* already set in his *.vimrc*
+(see *:help leader*). If this is not the case, vim will provide the \ key as
+the default for both leader and mapleader.
+
+It is recommended to *:set autochdir* globally in .vimrc (as explained in
+*:help autochdir*). If this is not the case, *now* files will still behave as
+if it was set (without affecting other files).
+
+A lot of defaults may be changed, notably most key bindings, as explained in
+*:help now*
+
+== Default Key Bindings ==
+From anywhere within vim: (<l> means <leader>, or \ if leader not set in .vimrc)
   *<l>nh*  show NOW *h*elp
   *<l>nn*  updates and opens root *n*ow index
   *<l>ni*  creates/updates local now *i*ndex file in current dir and opens it
   *<l>nr*  creates new *r*andom entry (in a predefined 'in' dir)
 
- - Within a NOW buffer: (<ll> means <localleader>, or \ if local leader not set up in .vimrc)
-  *gf*     open dir or file under cursor, adding suffix if needed (vim standard)
-  *<ll>gf* open under cursor with external program, which must be properly configured
-           (the defaults are 'firefox' for URLs and 'mimeopen' for anything else)
+Reminder: the following standard vim bindings can be useful for navigation
+  *gf*     open dir or file under cursor, adding suffix if needed
+  *Ctrl-O* go back to previous location
+
+Within a NOW buffer: (<ll> means <localleader>, or \ if local leader not set)
+  *<ll>gf* open under cursor with external program, which must be properly
+           configured (the defaults are '!firefox' for URLs and '!mimeopen' for 
+           anything else)
   *<ll>cf* *c*reate *f*ile or dir under cursor, adding suffix if needed
-  *<cr>*   automatically decides whether to act as *<ll>gf*, *gf* or *<ll>cf*
-  *Ctrl-O* go back to previous location (vim standard) 
-  *-*      go up to either dir's *index.now* file if available or to a *netrw* view of current directory
+  *<cr>*   automatically decide whether to act as *<ll>gf*, *gf* or *<ll>cf*
+  *-*      go up to either dir's *index.now* file if available or to a *netrw* 
+           view of current directory
   *<ll>n*  interactively (re)*n*ame a (random note) file in place
-  *<ll>m*  interactively *m*ove file somewhere else, keeping the same name (a default target dir can be set up)
-  *<ll>a*  *a*rchive file to "shadow dir", prepending date to name (to keep a historical log)
+  *<ll>c*  interactively *c*lassify file, i.e. move somewhere else, keeping the 
+           same name (a default target dir can be set up)
+  *<ll>s*  make a *s*hadow copy of file (in configurable "shadow dir"), 
+           prepending date to name (e.g. to keep a historical log)
 
- - Minimal syntax highliting:
-  *./...*  link to another file
-  *=...=*  title
-  **...**  emphasized text
+== (minimal) Highlighting ==
+  ./...  link to another file
+  =...=  title
+  *...*  emphasized text
 
-Possible usage:
- - dump anything from the mind into a random note ( with <leader>nr from anywhere on vim)
- - occasionally 'process' notes by naming them and classifying them somewhere on the directory tree (with <localleader>n and <ll>c)
- - shadow some notes, notably personal writing, to keep a historical log - usually right after naming them (with <localleader>s)
+== Possible usage ==
+ - dump anything from the mind into a random note ( with *<leader>nr* from 
+   anywhere on vim)
+ - occasionally 'process' notes by *naming* and/or *classifying* them somewhere 
+   on the directory tree (with *<localleader>n* and *<ll>c*)
+ - *shadow* some notes, notably personal writing, to keep a historical log - 
+   usually right after naming them (with *<localleader>s*)
 
-Possible directory tree (besides in/ and shadow/ or equivalent):
- - 'circulating' dir with subdirs to help temporary notes blend together into something
- - 'lifehack' dir to contain long-term lifehacking tips
- - 'quotes' dir to contain notes which carry book quotes, based on post-its glued while reading one
+Possible dir tree (besides *{g:NOW_rootdir}in/* and *{g:NOW_rootdir}shadow/*):
+ - **circulating** dir with subdirs to help temporary notes evolve
+ - **lifehack** dir to contain long-term lifehacking tips
+ - **quotes** dir to contain book quotes, based on post-its glued while reading one
  - etc...
 
   This could result in the following dir tree:

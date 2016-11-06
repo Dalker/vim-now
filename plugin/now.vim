@@ -10,10 +10,10 @@ function! <SID>SetOption(name, map) "{{{
 endfunction "}}}
 " For each option, default value is set unless previously overridden in user's .vimrc
 " directories {{{
-call <SID>SetOption("rootdir", $HOME . "/active/now/")
-call <SID>SetOption("randomdir",   'in/')    
-call <SID>SetOption("shadowdir",   'shadow/')
-call <SID>SetOption("classifydir", '../circulating/')      
+call <SID>SetOption("rootdir",     $HOME . "/now/")
+call <SID>SetOption("randomdir",   g:NOW_rootdir . 'in/')    
+call <SID>SetOption("shadowdir",   g:NOW_rootdir . 'shadow/')
+call <SID>SetOption("classifydir", g:NOW_rootdir . 'circulating/')      
 "}}}
 " file names and suffixes "{{{
 call <SID>SetOption("suffix",       '.now')
@@ -29,7 +29,7 @@ call <SID>SetOption("webbrowser", '!firefox ')
 call <SID>SetOption("mimeopencmd",'!mimeopen ')
 "}}}
 " global key mappings "{{{
-call <SID>SetOption("map_index",   "<leader>nn") " go to NOW index
+call <SID>SetOption("map_goroot",  "<leader>nn") " go to NOW index
 call <SID>SetOption("map_rnote",   "<leader>nr") " edit new random note
 call <SID>SetOption("map_mkindex", "<leader>ni") " create/update and goto index at cwd
 call <SID>SetOption("map_help",    "<leader>nh") " show NOW help
@@ -41,7 +41,7 @@ execute 'silent! normal! :autocmd BufNewFile,BufRead *' . g:NOW_suffix . " set f
 " }}}
 " Setup global mappings - usable from anywhere on vim{{{
 " - access NOW index from anywhere on vim
-execute "silent! normal! :nnoremap " . g:NOW_map_index . " :call now#Index()<cr>". "\r" 
+execute "silent! normal! :nnoremap " . g:NOW_map_goroot . " :call now#Index()<cr>". "\r" 
 " - create a new file labeled randomNN for next available natural NN and edit it
 execute "silent! normal! :nnoremap " . g:NOW_map_rnote . " :call now#RandomNote()<cr>". "\r" 
 " - create or update local directory's now index
@@ -53,4 +53,4 @@ execute "silent! normal! :nnoremap " . g:NOW_map_help . " :help now<cr>". "\r"
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-10-07
+" modif  date: 2016-11-06

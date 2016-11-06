@@ -16,7 +16,7 @@ endfun
 function! now#RandomNote() " {{{
   " create random note dir if necessary, then enter it
   " note: '~' doesn't work for home dir in vim, so substitute with full path if needed
-  let l:rndir = substitute(g:NOW_rootdir , "\\~", $HOME, "") . g:NOW_randomdir
+  let l:rndir = substitute(g:NOW_randomdir , "\\~", $HOME, "")
   if !isdirectory(l:rndir)
     call mkdir(l:rndir,"p")
   endif
@@ -113,9 +113,13 @@ function! now#Shadow() "{{{
 " copy current file to shadow dir (mapped on ftplugin)
   " shadowed contents have a date prefixed to the file name, to keep
   " a historical record of contents
+  let l:shadir = substitute(g:NOW_shadowdir , "\\~", $HOME, "")
+  if !isdirectory(l:shadir)
+    call mkdir(l:shadir,"p")
+  endif
   let l:destination = strftime('%Y.%m.%d') . '-' . expand('%:t')
   let l:actual_file = expand('%:p')
-  execute 'normal! :saveas ' . g:NOW_rootdir . g:NOW_shadowdir . l:destination . "\r"
+  execute 'normal! :saveas ' . l:shadir . '/' . l:destination . "\r"
   execute 'normal! :e '      . l:actual_file . "\r"
   execute 'normal! :bd '     . l:destination . "\r"
   execute 'normal! :echo "made a shadow copy of file"' . "\r"
