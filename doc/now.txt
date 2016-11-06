@@ -87,8 +87,8 @@ some |now-highlighting|.
     <LocalLeader>gf - browse URL or mimeopen file under cursor
     <LocalLeader>cf - create file under cursor (possibly adding extension)
     <LocalLeader>n  - name file (no need to type the extension)
-    <LocalLeader>c  - classify file (i.e. move somewhere else)
-    <LocalLeader>s  - shadow file (i.e. make a dated copy in shadow dir)
+    <LocalLeader>m  - move file (default location set in |now-options|)
+    <LocalLeader>a  - archive file (i.e. make a dated copy in shadow dir)
 
 =======================================================================
 3. Options                                                *now-options*
