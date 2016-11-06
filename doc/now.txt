@@ -76,7 +76,7 @@ some |now-highlighting|.
 
 2. Keybindings                                        *now-keybindings*
 
-2.1 Global keybindings (may be overridden with |now-options|)
+2.1 Global keybindings (all of which may be overridden in |now-options|)
     <Leader>nn      - update and enter |now| root index
     <Leader>ni      - update and enter |now| current directory index
     <Leader>nr      - create and edit a new random entry
@@ -86,6 +86,7 @@ some |now-highlighting|.
     <enter>         - navigate to file under cursor (as {gf}) or create it
     <LocalLeader>gf - browse URL or mimeopen file under cursor
     <LocalLeader>cf - create file under cursor (possibly adding extension)
+    The following may be overridden with |now-options|:
     <LocalLeader>n  - name file (no need to type the extension)
     <LocalLeader>m  - move file (default location set in |now-options|)
     <LocalLeader>a  - archive file (i.e. make a dated copy in shadow dir)
@@ -98,19 +99,20 @@ following example:
 > let g:NOW_rootdir = $HOME . '/active/now/'
 
 *g:NOW_rootdir*
-  base dir for NeverOptimaWiki, used by {<l>nn}
+  base dir for NeverOptimaWiki, used by *g:NOW_map_index*
   default value: {$HOME . '/active/now/'}
 
 *g:NOW_randomdir*
-  subdir for random notes, relative to NOW root dir, used by {<l>nr}
+  subdir for random notes, relative to NOW root dir, used by *g:NOW_map_rnote*
   default value: {in/}
 
 *g:NOW_shadowdir*
-  subdir for date-sorted "shadow" content, used by {<ll>s}
+  subdir for date-sorted "shadow" content, used by *g:NOW_map_archive*
   default value: {shadow/}
 
 *g:NOW_classifydir*
-  default subdir for classifiying, relative to |g:NOW_randomdir|, used by {<ll>nc}
+  default subdir for moving, relative to |g:NOW_randomdir|, 
+                             used by *g:NOW_map_move*
   default value: {../circulating/}
 
 *g:NOW_suffix*      
@@ -118,26 +120,30 @@ following example:
   default value: {.now}
 
 *g:NOW_indexname*
-  name of index files, without suffix, used by {<l>ni} and by {-}
+  name of index files, without suffix, used by *g:NOW_map_index* and by *-*
   default value: {index}
 
 *g:NOW_randombase* 
-  base name for random entry files used by {<l>nr}
+  base name for random entry files used by *g:NOW_map_rnote*
   default value: {random}
 
 *g:NOW_webbrowser*
-  choice of web browser, used by {<ll>gf}
+  choice of web browser, used by *<ll>gf* and *-*
   default value: {!firefox}
 
 *g:NOW_mimeopencmd*
-  choice of mimeopen program, used by {<ll>gf}
+  choice of mimeopen program, used by *<ll>gf* and *-*
   default value: {!mimeopen}
 
-*g:NOW_map_index*
-*g:NOW_map_rnote*
-*g:NOW_map_mkindex*
-  global mappings, the description and default values of which can be 
-  found in the help section |now-keybindings|
+*g:NOW_map_index*   (default: {<l>nn})
+*g:NOW_map_rnote*   (default: {<l>nr})
+*g:NOW_map_mkindex* (default: {<l>ni})
+  global mappings, described in section |now-keybindings|
+
+*g:NOW_map_name*    (default: {<ll>n})
+*g:NOW_map_move*    (default: {<ll>m})
+*g:NOW_map_archive* (default: {<ll>a})
+  local mappings, described in section |now-keybindings|
 
 =======================================================================
 

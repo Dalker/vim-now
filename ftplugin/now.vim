@@ -31,14 +31,24 @@ nnoremap <buffer> <localleader>cf :call now#CreateUnderCursor()<cr>gf
 "}}}
 
 " Mappings to move files around
-" <ll>n interactively names file to something else {{{
-nmap <buffer> <localleader>n :call now#Name()<cr>
+function! <SID>SetOption(name, map) "{{{
+  if !exists("g:NOW_" . a:name)
+    execute "silent! normal! :let g:NOW_" . a:name . " = '" . a:map . "'\r"
+  endif
+endfunction "}}}
+" interactively (re)name file (default: <ll>n) {{{
+call <SID>SetOption("map_name",   "<localleader>n") " (re)name file
+execute "silent! normal! :nnoremap " . g:NOW_map_name . " :call now#Name()<cr>". "\r" 
 "}}}
-" <ll>m interactively moves a file somewhere else {{{
-nmap <buffer> <localleader>m :call now#Classify()<cr>
+" interactively move file (default key: <ll>m, {{{
+"                          default destination: g:NOW_classifydir)
+call <SID>SetOption("map_move",   "<localleader>m") " move file
+execute "silent! normal! :nnoremap " . g:NOW_map_move . " :call now#Classify()<cr>". "\r" 
 "}}}
-" <ll>a archives current file in shadow dir, with date preprended {{{
-nmap <buffer> <LocalLeader>a :call now#Shadow()<cr>
+" archive current file, with preprending date (default key: <ll>a, {{{
+"                                              destination: g:NOW_shadowdir)
+call <SID>SetOption("map_archive",   "<localleader>a") " move file
+execute "silent! normal! :nnoremap " . g:NOW_map_archive . " :call now#Shadow()<cr>". "\r" 
 "}}}
 
 " Other properties of NOW buffers
@@ -55,4 +65,4 @@ setlocal foldlevel=1
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2016-10-08
+" modif  date: 2016-11-06
