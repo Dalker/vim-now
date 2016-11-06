@@ -10,7 +10,7 @@ function! now#Index() " {{{
   if !isdirectory(g:NOW_rootdir)
     call mkdir(g:NOW_rootdir,"p")
   endif
-  execute "normal! :edit " . g:NOW_rootdir . g:NOW_indexname . g:NOW_suffix . "\r"
+  execute "normal! :edit " . g:NOW_rootdir . '/' . g:NOW_indexname . g:NOW_suffix . "\r"
 endfun
 "}}}
 function! now#RandomNote() " {{{
@@ -98,10 +98,16 @@ endfunction "}}}
 function! now#BufUp() "{{{
 " behaviour of - while on now files (mapped on ftplugin)
   if expand('%:t') ==# g:NOW_indexname . g:NOW_suffix
-    " if on index file, go to parent dir first (otherwise stay on same dir)
-    cd ../
-  end
-  if filereadable(g:NOW_indexname . g:NOW_suffix)
+    " if on index file, check if parent dir has an index file
+    if filereadable('../' . g:NOW_indexname . g:NOW_suffix)
+      " if there's a parent index file, update and enter it
+      cd ../
+      call now#MakeIndex()
+    else
+      " otherwise goto netrw staying in same dir
+      edit ./
+    end
+  elseif filereadable(g:NOW_indexname . g:NOW_suffix)
     " if there's an index file, update and enter it
     call now#MakeIndex()
   else
@@ -244,4 +250,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-10-08
+" modif  date: 2016-11-06

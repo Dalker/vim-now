@@ -11,9 +11,9 @@ endfunction "}}}
 " For each option, default value is set unless previously overridden in user's .vimrc
 " directories {{{
 call <SID>SetOption("rootdir",     $HOME . "/now/")
-call <SID>SetOption("randomdir",   g:NOW_rootdir . 'in/')    
-call <SID>SetOption("shadowdir",   g:NOW_rootdir . 'shadow/')
-call <SID>SetOption("classifydir", g:NOW_rootdir . 'circulating/')      
+call <SID>SetOption("randomdir",   g:NOW_rootdir . '/in/')    
+call <SID>SetOption("shadowdir",   g:NOW_rootdir . '/shadow/')
+call <SID>SetOption("classifydir", g:NOW_rootdir . '/circulating/')      
 "}}}
 " file names and suffixes "{{{
 call <SID>SetOption("suffix",       '.now')
