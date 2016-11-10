@@ -51,6 +51,10 @@ call <SID>SetOption("map_shadow", "<localleader>s") " make a shadow copy of file
 execute "silent! normal! :nnoremap " . g:NOW_map_shadow . " :call now#Shadow()<cr>". "\r" 
 "}}}
 
+" Mappings to increase/decrease the 'title' level of current line
+nnoremap <localleader>t I= <esc>A =<esc>0
+nnoremap <localleader>T :s/^= //e<cr>:s/ =$//e<cr>:let @/=""<cr>
+
 " Other properties of NOW buffers
 " allow some concealing "{{{
 setlocal conceallevel=2
@@ -65,4 +69,4 @@ setlocal foldlevel=1
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-07-10
-" modif  date: 2016-11-06
+" modif  date: 2016-11-10
