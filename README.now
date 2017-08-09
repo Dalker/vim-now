@@ -16,7 +16,7 @@
 
 == Configuration ==
 Most probably the single option that will need to be set by the user is the root dir of the never optimal wiki:
-    > let g:NOW_rootdir = '~/location/of/rootdir/'
+    > let g:NOW_rootdir = '/location/of/rootdir/'
 
 User is expected to have *leader* and *localleader* already set in his *.vimrc*
 (see *:help leader*). If this is not the case, vim will provide the \ key as
@@ -90,4 +90,4 @@ Possible dir tree (besides *{g:NOW_rootdir}in/* and *{g:NOW_rootdir}shadow/*):
 %------------------------
 % CopyLeft by dalker
 % create date: 2015-11-01
-% modif  date: 2016-11-06
+% modif  date: 2017-08-10

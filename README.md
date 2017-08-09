@@ -11,6 +11,6 @@
       > git clone https://github.com/Dalker/vim-now
   2.  (optionally) setup location of desired NOW root dir in .vimrc
 
-      > let g:NOW_rootdir = '~/location/of/rootdir/'
+      > let g:NOW_rootdir = '/location/of/rootdir/'
   3.  open vim and read the help accessible with [leader]nh
 
