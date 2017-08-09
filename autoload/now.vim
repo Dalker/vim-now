@@ -151,7 +151,13 @@ function! now#Name() "{{{
 endfunction "}}}
 function! now#Classify() "{{{
 " classify, i.e. move elsewhere, with same name (mapped on ftplugin)
-  let l:answer = input("enter destination dir or <esc> to abort : ", g:NOW_classifydir , 'file')
+  let l:rndir = substitute(g:NOW_randomdir , "\\~", $HOME, "")
+  let l:ldir = expand('%:p:h') . '/'
+  if l:rndir ==# l:ldir
+    let l:answer = input("enter destination dir or <esc> to abort : ", g:NOW_classifydir , 'file')
+  else
+    let l:answer = input("enter destination dir or <esc> to abort : ", l:ldir , 'file')
+  end
   " verify if no dir (abort), if dir exists, or if needs creation
   let l:dest_dir  = fnamemodify(l:answer, ":p")
   if l:answer ==# ""
@@ -250,4 +256,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2016-11-06
+" modif  date: 2017-08-09
