@@ -52,10 +52,14 @@ execute "silent! normal! :nnoremap " . g:NOW_map_shadow . " :call now#Shadow()<c
 "}}}
 
 " Mappings to increase/decrease the 'title' level of current line
-nnoremap <localleader>t I= <esc>A =<esc>0
-" TODO: detect if already titled, in which case add = but no space
-nnoremap <localleader>T :s/^= //e<cr>:s/ =$//e<cr>:let @/=""<cr>
-" TODO: detect if subtitle, in which case remove = but no space
+" increase title level (default: <ll>t) {{{
+call <SID>SetOption("map_title_plus", "<localleader>t") " make a shadow copy of file
+execute "silent! normal! :nnoremap " . g:NOW_map_title_plus . " :call now#IncreaseTitleLevel()<cr>". "\r" 
+" }}}
+" decrease title level (default: <ll>T) {{{
+call <SID>SetOption("map_title_minus", "<localleader>T") " make a shadow copy of file
+execute "silent! normal! :nnoremap " . g:NOW_map_title_minus . " :call now#DecreaseTitleLevel()<cr>". "\r" 
+" }}}
 
 " Other properties of NOW buffers
 " allow some concealing "{{{

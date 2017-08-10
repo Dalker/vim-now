@@ -233,6 +233,24 @@ function! now#MimeOpenUnderCursor() "{{{
     execute "normal! :" . g:NOW_mimeopencmd. " " . @z . "\r"
   endif
 endfun "}}}
+function! now#IncreaseTitleLevel() "{{{
+  " check if there's already some titling
+  if search('^=', 'c', line("."))
+    " increase title level
+    execute "normal! I=\eA=\e0"
+  else
+    " introduce level 1 title
+    execute "normal! I= \eA =\e0"
+  endif
+endfun "}}}
+function! now#DecreaseTitleLevel() "{{{
+  " check if there's already some titling
+  if search('^=', 'c', line("."))
+    " remove title or decrease title level
+    execute "normal! :s/^= //e\r:s/ =$//e\r"
+    execute "normal! :s/^==/=/e\r:s/==$/=/e\r"
+  endif
+endfun "}}}
 " function called when folding
 function! now#SetFoldLevel(lnum) "{{{
   if getline(a:lnum) =~? '\v^\=\=\=\='
@@ -256,4 +274,4 @@ endfun "}}}
 "------------------------
 " CopyLeft by dalker
 " create date: 2015-08-18
-" modif  date: 2017-08-09
+" modif  date: 2017-08-10

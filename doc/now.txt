@@ -10,16 +10,21 @@
     1.2 What NOW? .................................. |now-what|
     1.3 Simplest setup of NOW ...................... |now-setup-simple|
 2. Keybindings...................................... |now-keybindings|
+    2.1 Global keybindings ......................... |now-keys-global|
+    2.2 Local keybindings (within a |now| file) ...... |now-keys-local|
 3. Options ......................................... |now-options|
+    3.1 Directories and filenames .................. |now-options-files|
+    3.2 Key bindings ............................... |now-options-keys|
+    3.3 Auxiliary programs ......................... |now-options-aux|
 4. Syntax highlighing .............................. |now-syntax|
 5. Changelog ....................................... |now-changelog|
 6. Colophon ........................................ |now-about|
 
 =======================================================================
 
-1. Intro                                                    *now-intro*
+1. Intro                                                      *now-intro*
 
-1.1 Why NOW?                                                *now-why*
+1.1 Why NOW?                                                    *now-why*
 
 The author was dissatisfied with the complexities of the existing vim 
 wiki plugins, so he decided to create a minimalistic personal wiki 
@@ -28,7 +33,7 @@ well as the system's dir structure.
 
 -----------------------------------------------------------------------
 
-1.2 What NOW?                                               *now-what*
+1.2 What NOW?                                                  *now-what*
 
 This plugin provides the |now| filetype for personal notes. It is 
 intended to work with the following workflow:
@@ -45,11 +50,12 @@ intended to work with the following workflow:
 - once the entry is somewhat stabilized, it can be classified (i.e. 
   moved to an adequate zone in the dir structure) with {<localleader>c}
 
-- a dated backup of the entry may be created in the "shadow" dir at any 
+- a dated backup of the entry may be created in the "shadow" dir at any
   time with {<localleader>s}
 
-A few other simple |now-keybindings| are provided for ease of navigation,
-as well as some minimal |now-syntax| highlighting and folding.
+A few other simple |now-keybindings| are provided for ease of 
+navigation, as well as some minimal |now-syntax| highlighting and 
+folding.
 
 Linking between files is done the vim way, simply using {gf} on its
 name, or with the overridden {enter} key that also checks if what is
@@ -59,11 +65,12 @@ doesn't exist. Web browser and mime opener have default values that are
 overrideable |now-options|.
 
 It is recommended to emphasize that a word is a link by clarifying it
-is meant as a filename, such as {./word}. Obvious links are highlighted.
+is meant as a filename, such as {./word}. Obvious links are 
+highlighted.
 
 -----------------------------------------------------------------------
 
-1.3 Simplest setup of NOW                            *now-setup-simple* 
+1.3 Simplest setup of NOW                              *now-setup-simple*
 
 Create a dir for your default |now| location and add the following line 
 to your .vimrc:
@@ -74,32 +81,37 @@ some |now-highlighting|.
 
 =======================================================================
 
-2. Keybindings                                        *now-keybindings*
+2. Keybindings                                          *now-keybindings*
 
-2.1 Global keybindings (all of which may be overridden in |now-options|)
+2.1 Global keybindings                                  *now-keys-global*
+    All global keybindings may be overridden in |now-options|.
     <Leader>nn      - update and enter |now| root index
     <Leader>ni      - update and enter |now| current directory index
     <Leader>nr      - create and edit a new random entry
 
-2.2 Local keybindings (within a |now| file)
+2.2 Local keybindings (within a |now| file)                *now-keys-local*
+    The following keybindings are fixed (not overrideable):
     <LocalLeader>gf - browse URL or mimeopen file under cursor
-    <LocalLeader>cf - create file under cursor (possibly adding extension)
+    <LocalLeader>cf - create file under cursor (possibly adding 
+                      extension)
     <enter>         - automatically do one of the above or act as {gf}
     -               - navigate "up", to index file (if any) or to netrw
     The following may be overridden with |now-options|:
     <LocalLeader>n  - name file (no need to type the extension)
-    <LocalLeader>c  - classify file, i.e. move to other dir, keeping name 
-                      (default location set in |now-options|)
-    <LocalLeader>s  - shadow file (i.e. make a dated copy in shadow dir)
+    <LocalLeader>c  - classify file, i.e. move to other dir, keeping 
+                      name (default location set in |now-options|)
+    <LocalLeader>s  - shadow file (i.e. make dated copy in shadow dir)
+    <LocalLeader>t  - increase title level of line (surround by = =)
+    <LocalLeader>T  - decrease title level of line, if any
 
 =======================================================================
-3. Options                                                *now-options*
+3. Options                                                  *now-options*
 
-These can be set up on |.vimrc| to override the default values, as in the 
-following example: 
+These can be set up on |.vimrc| to override the default values, as in
+the following example: 
 > let g:NOW_rootdir = $HOME . '/active/now/'
 >
-3.1 Directories and filenames
+3.1 Directories and filenames                         *now-options-files*
 
 *g:NOW_suffix* (default: {.now})
   suffix for NOW files, used by most mappings
@@ -117,24 +129,27 @@ following example:
   default destination for |g:NOW_map_classify|
 
 *g:NOW_indexname* (default: {index})
-  name of index files, without suffix, used by |g:NOW_map_goroot| and by {-}
+  name of index files, without suffix, used by |g:NOW_map_goroot| and
+  by the {-} key local mapping
 
 *g:NOW_randombase* (default: {random})
   base name for random entry files used by |g:NOW_map_rnote|
 
-3.2 Key bindings
+3.2 Key bindings                                       *now-options-keys*
 
-*g:NOW_map_goroot*  (default: {<l>nn})
-*g:NOW_map_rnote*   (default: {<l>nr})
-*g:NOW_map_mkindex* (default: {<l>ni})
-  global mappings, described in |now-keybindings|
+3.2.1 global mappings, described in |now-keybindings|
+*g:NOW_map_goroot*       (default: {<l>nn})
+*g:NOW_map_rnote*        (default: {<l>nr})
+*g:NOW_map_mkindex*      (default: {<l>ni})
 
-*g:NOW_map_name*     (default: {<ll>n})
-*g:NOW_map_classify* (default: {<ll>m})
-*g:NOW_map_shadow*   (default: {<ll>a})
-  local mappings, described in |now-keybindings|
+3.2.2 local mappings, described in |now-keybindings|
+*g:NOW_map_name*         (default: {<ll>n})
+*g:NOW_map_classify*     (default: {<ll>m})
+*g:NOW_map_shadow*       (default: {<ll>a})
+*g:NOW_map_title_plus*   (default: {<ll>t})
+*g:NOW_map_title_minus*  (default: {<ll>t})
 
-3.3 Auxiliary programs
+3.3 Auxiliary programs                                 *now-options-aux*
 
 *g:NOW_webbrowser* (default: {!firefox})
   choice of web browser, used by {<ll>gf} and {-}
@@ -144,17 +159,18 @@ following example:
 
 =======================================================================
 
-4. Syntax highlighting                                      *now-syntax*
-Very minimal syntax highlighting and folding is provided within a |now| buffer.
+4. Syntax highlighting                                       *now-syntax*
+Very minimal syntax highlighting and folding is provided within a |now| 
+buffer.
 
 {./bla}
 {/bla/bla}
 {http[s]://bla}
 {www.bla}
   these are recognized as "links" and highlighted accordingly
-  they can be followed by {gf} or {enter} but so can any word if it's the
-  name of an actual existing file (with possible |g:NOW_suffix| appended)
-  or URL (with {enter} only, not with {gf})
+  they can be followed by {gf} or {enter} but so can any word if it's
+  the name of an actual existing file (with possible |g:NOW_suffix| 
+  appended) or URL (with {enter} only, not with {gf})
 
 {=bla=}
   this is recognized as a "title"; it is highlighted and can be folded
@@ -168,8 +184,12 @@ Very minimal syntax highlighting and folding is provided within a |now| buffer.
 
 
 =======================================================================
-5. Changelog                              *now-changelog*           {{{
+5. Changelog                              *now-changelog*             {{{
 
+* v0.7: - added keybindings/functions for title level increasing and
+          decreasing
+        - several minor bug fixes
+        - minor improvements to documentation
 * v0.6  - overhauled behaviour of <enter> (auto-open urls, possibly
           delegate to external mime opener, possibly create file)
 * v0.5  - added this documentation, plus a few minor changes
@@ -192,7 +212,7 @@ Very minimal syntax highlighting and folding is provided within a |now| buffer.
         http://www.vim.org/scripts/script.php?script_id=5263
 }}}
 =======================================================================
-6. Colophon                                                 *now-about*
+6. Colophon                                                   *now-about*
 
 Never Optimal Wiki initially developped by:
     Dalker (https://github.com/Dalker)
