@@ -5,7 +5,7 @@
 " Option setting function defined
 function! <SID>SetOption(name, map) "{{{
   if !exists("g:NOW_" . a:name)
-    execute "silent! normal! :let g:NOW_" . a:name . " = '" . a:map . "'\r"
+    let {"g:NOW_" . a:name} = a:map
   endif
 endfunction "}}}
 " For each option, default value is set unless previously overridden in user's .vimrc
